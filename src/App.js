@@ -8,13 +8,11 @@ function App() {
             <header className='header'>
                 <img src='https://cdn2.vectorstock.com/i/1000x1000/48/46/guitar-logo-vector-10784846.jpg' alt='logo'/>
             </header>
+            <div className='avatar'>
+                <img src='https://semantica.in/wp-content/uploads/2018/08/av-427845.png' alt='my photo'/>
+            </div>
             <div className='personalInfo'>
-                <div className='avatar'>
-                    <img src='https://semantica.in/wp-content/uploads/2018/08/av-427845.png' alt='my photo'/>
-                </div>
-                <div className='aboutMySelf'>
-                    personal information
-                </div>
+                personal information
             </div>
             <nav className='nav'>
                 <div>

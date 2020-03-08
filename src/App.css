@@ -2,7 +2,7 @@
     display: grid;
     width: 1500px;
     margin: 0px auto;
-    grid-template-areas: "header header" "personalInfo personalInfo" "nav content";
+    grid-template-areas: "header header" "avatar personalInfo" "nav content";
 
     grid-template-rows: 60px 150px 1fr;
     grid-template-columns: 2fr 10fr;
@@ -19,14 +19,22 @@
     width: 40px;
 }
 
+.avatar {
+    grid-area: avatar;
+    background: blue;
+
+}
+
 .personalInfo {
     grid-area: personalInfo;
     background: gray;
     display: flex;
 }
 
-.personalInfo .avatar img {
+.avatar img {
     height: 150px;
+    display: block;
+    margin: auto;
 }
 
 .personalInfo .aboutMySelf {

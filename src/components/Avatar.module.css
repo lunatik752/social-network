@@ -1,0 +1,11 @@
+.avatar {
+    grid-area: avatar;
+    background: blue;
+
+}
+
+.avatar img {
+    height: 150px;
+    display: block;
+    margin: auto;
+}

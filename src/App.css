@@ -1,53 +1,11 @@
 .app-wrapper {
     display: grid;
-    width: 1500px;
-    margin: 0px auto;
+    width: 100%;
+    margin: 10px auto;
     grid-template-areas: "header header" "avatar personalInfo" "nav content";
 
     grid-template-rows: 60px 150px 1fr;
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 
-}
-
-.header {
-    grid-area: header;
-    background: coral;
-}
-
-.header img {
-    width: 40px;
-}
-
-.avatar {
-    grid-area: avatar;
-    background: blue;
-
-}
-
-.personalInfo {
-    grid-area: personalInfo;
-    background: gray;
-    display: flex;
-}
-
-.avatar img {
-    height: 150px;
-    display: block;
-    margin: auto;
-}
-
-.personalInfo .aboutMySelf {
-    display: inline-block;
-}
-
-
-.nav {
-    grid-area: nav;
-    background: cornflowerblue;
-}
-
-.content {
-    grid-area: content;
-    background: blueviolet;
 }

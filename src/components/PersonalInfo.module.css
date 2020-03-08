@@ -1,0 +1,9 @@
+.personalInfo {
+    grid-area: personalInfo;
+    background: gray;
+    display: flex;
+}
+
+.personalInfo .aboutMySelf {
+    display: inline-block;
+}

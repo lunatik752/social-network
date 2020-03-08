@@ -3,15 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header";
 import Avatar from "./components/Avatar";
+import PersonalInfo from "./components/PersonalInfo";
 
 function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
             <Avatar/>
-            <div className='personalInfo'>
-                personal information
-            </div>
+            <PersonalInfo/>
             <nav className='nav'>
                 <div>
                     <a>Profile</a>

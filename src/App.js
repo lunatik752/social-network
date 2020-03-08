@@ -2,14 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header";
+import Avatar from "./components/Avatar";
 
 function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <div className='avatar'>
-                <img src='https://semantica.in/wp-content/uploads/2018/08/av-427845.png' alt='my photo'/>
-            </div>
+            <Avatar/>
             <div className='personalInfo'>
                 personal information
             </div>

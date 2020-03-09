@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from "./components/Header";
-import Avatar from "./components/Avatar";
-import PersonalInfo from "./components/PersonalInfo";
-import Navbar from "./components/Navbar";
-import Profile from "./components/Profile";
+import Header from "./components/Header/Header";
+import Avatar from "./components/Avatar/Avatar";
+import PersonalInfo from "./components/PersonalInfo/PersonalInfo";
+import Navbar from "./components/Navbar/Navbar";
+import Profile from "./components/Profile/Profile";
 
 function App() {
     return (

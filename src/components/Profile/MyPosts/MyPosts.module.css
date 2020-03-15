@@ -1,2 +1,7 @@
+.myPosts {
+    grid-area: myPosts;
+}
 
-
+.posts {
+    margin-top: 10px;
+}

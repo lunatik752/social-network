@@ -2,36 +2,38 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
+
+const DialogsItem = (props) => {
+    return (
+        <div className={s.dialog + ' ' + s.active}>
+            <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
+        </div>
+    )
+};
+
+const Message = (props) => {
+    return (
+        <div className={s.message}>
+            {props.message}
+        </div>
+    )
+};
+
 const Dialogs = (props) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                <div className={s.dialog + ' ' + s.active}>
-                    <NavLink to='/dialogs/1'>Maks</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/2'>Aleks</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/3'>Kna</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/4'>Andy</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/5'>Cat</NavLink>
-                </div>
+                <DialogsItem name='Maks' id='1'/>
+                <DialogsItem name='Aleks' id='2'/>
+                <DialogsItem name='Kna' id='3'/>
+                <DialogsItem name='Andy' id='4'/>
+                <DialogsItem name='Cat' id='5'/>
+
             </div>
             <div className={s.messagesItem}>
-                <div className={s.message}>
-                    Hello!
-                </div>
-                <div className={s.message}>
-                    How are you? What are you doing?
-                </div>
-                <div className={s.message}>
-                    Come with me.
-                </div>
+                <Message message='Hello!'/>
+                <Message message='How are you? What are you doing?!'/>
+                <Message message='Come with me.'/>
             </div>
         </div>
     )

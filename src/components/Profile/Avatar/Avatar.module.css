@@ -1,7 +1,6 @@
 .avatar {
     grid-area: avatar;
     background: blue;
-
 }
 
 .avatar img {

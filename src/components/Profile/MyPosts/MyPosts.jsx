@@ -3,6 +3,13 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = () => {
+
+    let posts = [
+        {massege: 'Hello!!!', countLikes: '3'},
+        {massege: 'This is a post.', countLikes: '12'}
+    ];
+    let postsElements = posts.map(p => <Post massege={p.massege} countLikes={p.countLikes}/>);
+
     return (
         <div className={s.myPosts}>
             <h3> My posts </h3>
@@ -15,8 +22,7 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={s.posts}>
-            <Post massege='Hello!!!' countLikes='3'/>
-            <Post massege='This is a post.' countLikes='8'/>
+                {postsElements}
             </div>
         </div>
     )

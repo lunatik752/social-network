@@ -1,5 +1,6 @@
 .myPosts {
     grid-area: myPosts;
+    background-color: darkturquoise;
 }
 
 .posts {

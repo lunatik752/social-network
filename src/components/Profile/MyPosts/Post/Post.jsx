@@ -6,7 +6,7 @@ const Post = (props) => {
     return (
         <div className={s.item}>
             <img src='https://newscor.net/wp-content/uploads/9dae4c5ef70508e82f3bed0dcbac2209-800x700.jpg' alt='ava'/>
-            {props.massege}
+            {props.message}
             <div>
                 <span>like-{props.countLikes}</span>
             </div>

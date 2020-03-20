@@ -5,12 +5,14 @@ import PersonalInfo from "./PersonalInfo/PersonalInfo";
 import Avatar from "./Avatar/Avatar";
 import './Profile.module.css'
 
-const Profile = () => {
+
+
+const Profile = (props) => {
     return (
         <div className={s.profileWrapper}>
             <Avatar/>
             <PersonalInfo/>
-            <MyPosts/>
+            <MyPosts posts={props.posts}/>
         </div>
     )
 };

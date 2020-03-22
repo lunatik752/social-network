@@ -1,5 +1,8 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
+import PropTypes from "prop-types";
+import Dialogs from "../Dialogs";
+
 
 
 const Message = (props) => {
@@ -12,3 +15,4 @@ const Message = (props) => {
 
 
 export default Message;
+

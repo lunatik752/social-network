@@ -4,6 +4,8 @@ import MyPosts from "./MyPosts/MyPosts";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
 import Avatar from "./Avatar/Avatar";
 import './Profile.module.css'
+import PropTypes from "prop-types";
+
 
 
 
@@ -18,3 +20,7 @@ const Profile = (props) => {
 };
 
 export default Profile;
+
+Profile.propTypes = {
+    state: PropTypes.string
+};

@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
+import PropTypes from "prop-types";
+import Message from "../Dialogs/Message/Message";
 
 const Navbar = () => {
     return (
@@ -25,3 +27,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

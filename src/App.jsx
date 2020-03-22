@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-
+import PropTypes from 'prop-types';
 
 
 
@@ -31,3 +31,7 @@ function App(props) {
 }
 
 export default App;
+
+App.propTypes = {
+    state: PropTypes.object
+};

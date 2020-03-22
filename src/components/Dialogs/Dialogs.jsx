@@ -2,6 +2,9 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogsItem from "./DialogItem/DialogItem";
+import PropTypes from 'prop-types';
+import App from "../../App";
+
 
 const Dialogs = (props) => {
 
@@ -22,3 +25,7 @@ const Dialogs = (props) => {
 };
 
 export default Dialogs;
+
+Dialogs.propTypes = {
+    state: PropTypes.object
+};

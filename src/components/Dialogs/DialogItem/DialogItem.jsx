@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
 import {NavLink} from "react-router-dom";
+import PropTypes from "prop-types";
+import Message from "../Message/Message";
 
 
 const DialogsItem = (props) => {
@@ -13,3 +15,8 @@ const DialogsItem = (props) => {
 
 
 export default DialogsItem;
+
+DialogsItem.propTypes = {
+    name: PropTypes.string,
+    id: PropTypes.string
+};

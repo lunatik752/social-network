@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './PersonalInfo.module.css';
+import PropTypes from "prop-types";
 
 const PersonalInfo = () => {
     return (
@@ -10,3 +11,4 @@ const PersonalInfo = () => {
 };
 
 export default PersonalInfo;
+

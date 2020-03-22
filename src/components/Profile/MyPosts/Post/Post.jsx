@@ -1,5 +1,7 @@
 import React from 'react';
 import s from './Post.module.css';
+import PropTypes from "prop-types";
+
 
 
 const Post = (props) => {
@@ -15,3 +17,8 @@ const Post = (props) => {
 };
 
 export default Post;
+
+Post.propTypes = {
+    message: PropTypes.string,
+    countLikes: PropTypes.string
+};

@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import PropTypes from "prop-types";
+import DialogsItem from "../../Dialogs/DialogItem/DialogItem";
 
 const MyPosts = (props) => {
 
@@ -25,3 +27,7 @@ const MyPosts = (props) => {
 };
 
 export default MyPosts;
+
+MyPosts.propTypes = {
+    posts: PropTypes.string
+};

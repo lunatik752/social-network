@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
 import PropTypes from "prop-types";
-import Dialogs from "../Dialogs";
+
 
 
 

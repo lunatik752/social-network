@@ -7,16 +7,22 @@ import PropTypes from 'prop-types';
 
 const Dialogs = (props) => {
 
-    let dialogsElements = props.state.dialogsPage.dialogs.map(d => <DialogsItem name={d.name} id={d.id}/>);
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogsItem name={d.name} id={d.id}/>);
 
-    let messagesElements = props.state.dialogsPage.messages.map(m => <Message message={m.message}/>);
+    let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>);
 
     let newMessageElement = React.createRef();
 
     let  addMessage = () => {
         let text = newMessageElement.current.value;
-        alert(text);
+        props.addMessage(text);
     };
+
+    let onMessageChange = () => {
+        let text = newMessageElement.current.value;
+        props.updateNewMessageText(text);
+    };
+
 
     return (
         <div className={s.dialogs}>
@@ -27,7 +33,7 @@ const Dialogs = (props) => {
                 {messagesElements}
                 <div className={s.newMessage}>
                     <div>
-                        <textarea ref={newMessageElement}> </textarea>
+                        <textarea onChange={onMessageChange} ref={newMessageElement} value={props.dialogsPage.newMessageText}> </textarea>
                     </div>
                     <div>
                         <button onClick={addMessage}>Send message</button>

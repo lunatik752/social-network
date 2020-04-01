@@ -14,7 +14,10 @@ const Profile = (props) => {
         <div className={s.profileWrapper}>
             <Avatar/>
             <PersonalInfo/>
-            <MyPosts posts={props.state.profilePage.posts} addPost={props.addPost}/>
+            <MyPosts posts={props.profilePage.posts}
+                     newPostText={props.profilePage.newPostText}
+                     addPost={props.addPost}
+                     updateNewPostText={props.updateNewPostText}/>
         </div>
     )
 };

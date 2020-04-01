@@ -18,5 +18,5 @@ export default DialogsItem;
 
 DialogsItem.propTypes = {
     name: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.number
 };

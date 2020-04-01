@@ -13,20 +13,24 @@ import PropTypes from 'prop-types';
 
 
 
-
 function App(props) {
     return (
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/profile' render={() => <Profile state={props.state} addPost={props.addPost}/>}/>
-                    <Route path='/dialogs' component={() => <Dialogs state={props.state}/>}/>
-                    <Route path='/news' component={() => <News/>}/>
-                    <Route path='/music' component={() => <Music/>}/>
-                    <Route path='/settings' component={() => <Settings/>}/>
-                </div>
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/profile'
+                       render={() => <Profile profilePage={props.state.profilePage}
+                                              addPost={props.addPost}
+                                              updateNewPostText={props.updateNewPostText}/>}/>
+                <Route path='/dialogs' render={() => <Dialogs dialogsPage={props.state.dialogsPage}
+                                                                 addMessage={props.addMessage}
+                                                                 updateNewMessageText={props.updateNewMessageText}/>}/>
+                <Route path='/news' component={() => <News/>}/>
+                <Route path='/music' component={() => <Music/>}/>
+                <Route path='/settings' component={() => <Settings/>}/>
             </div>
+        </div>
     );
 }
 

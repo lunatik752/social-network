@@ -7,8 +7,6 @@ import './Profile.module.css'
 import PropTypes from "prop-types";
 
 
-
-
 const Profile = (props) => {
     return (
         <div className={s.profileWrapper}>
@@ -16,8 +14,7 @@ const Profile = (props) => {
             <PersonalInfo/>
             <MyPosts posts={props.profilePage.posts}
                      newPostText={props.profilePage.newPostText}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}/>
+                     dispatch={props.dispatch}/>
         </div>
     )
 };

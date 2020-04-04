@@ -11,8 +11,6 @@ import Settings from "./components/Settings/Settings";
 import PropTypes from 'prop-types';
 
 
-
-
 function App(props) {
     return (
         <div className='app-wrapper'>
@@ -20,12 +18,9 @@ function App(props) {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/profile'
-                       render={() => <Profile profilePage={props.state.profilePage}
-                                              addPost={props.addPost}
-                                              updateNewPostText={props.updateNewPostText}/>}/>
-                <Route path='/dialogs' render={() => <Dialogs dialogsPage={props.state.dialogsPage}
-                                                                 addMessage={props.addMessage}
-                                                                 updateNewMessageText={props.updateNewMessageText}/>}/>
+                       render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                <Route path='/dialogs'
+                       render={() => <Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
                 <Route path='/news' component={() => <News/>}/>
                 <Route path='/music' component={() => <Music/>}/>
                 <Route path='/settings' component={() => <Settings/>}/>

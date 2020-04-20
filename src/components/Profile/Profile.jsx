@@ -7,13 +7,12 @@ import PropTypes from "prop-types";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-const Profile = (props) => {
-    debugger
+const Profile = () => {
     return (
         <div className={s.profileWrapper}>
             <Avatar/>
             <PersonalInfo/>
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer/>
         </div>
     )
 };

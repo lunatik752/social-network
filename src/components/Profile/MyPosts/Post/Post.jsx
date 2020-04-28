@@ -20,5 +20,5 @@ export default Post;
 
 Post.propTypes = {
     message: PropTypes.string,
-    countLikes: PropTypes.string
+    countLikes: PropTypes.number
 };

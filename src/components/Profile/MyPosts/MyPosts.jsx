@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const MyPosts = (props) => {
 
-    let postsElements = props.posts.map(p => <Post message={p.message} countLikes={p.countLikes}/>);
+    let postsElements = props.posts.map(p => <Post message={p.message} key={p.id} countLikes={p.countLikes}/>);
 
 
     let onAddPost = () => {
@@ -41,5 +41,5 @@ const MyPosts = (props) => {
 export default MyPosts;
 
 MyPosts.propTypes = {
-    posts: PropTypes.string
+    posts: PropTypes.array
 };

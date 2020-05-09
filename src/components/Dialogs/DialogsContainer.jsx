@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogsReduсer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -28,6 +26,3 @@ const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
 
-DialogsContainer.propTypes = {
-    state: PropTypes.object
-};

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 
 const MyPosts = (props) => {
-
+debugger
     let postsElements = props.posts.map(p => <Post message={p.message} key={p.id} countLikes={p.countLikes}/>);
 
 

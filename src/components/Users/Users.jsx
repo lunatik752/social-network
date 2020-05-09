@@ -15,12 +15,11 @@ class Users extends React.Component {
     }
 
 
-    render()
-        {
-            return (
-                <div className={style.usersWrapper}>
+    render() {
+        return (
+            <div className={style.usersWrapper}>
 
-                    {this.props.users.map(user => <div key={user.id}>
+                {this.props.users.map(user => <div key={user.id}>
                     <span>
                         <div>
                             <img src={user.photos.small != null ? user.photos.small : userPhoto} alt='photo'
@@ -37,7 +36,7 @@ class Users extends React.Component {
 
                         </div>
                     </span>
-                        <span>
+                    <span>
                         <span>
                             <div>
                                 <span>{user.name}</span>
@@ -56,15 +55,13 @@ class Users extends React.Component {
                            </div>
                         </span>
                     </span>
-                    </div>)
-                    }
-                </div>
-            )
-        }
-        ;
+                </div>)
+                }
+            </div>
+        )
     }
+    ;
+}
 
 
-    export
-    default
-    Users;
+export default Users;

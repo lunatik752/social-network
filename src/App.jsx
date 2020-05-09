@@ -10,8 +10,7 @@ import Settings from "./components/Settings/Settings";
 import PropTypes from 'prop-types';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-
-
+import PhotosContainer from "./components/Photos/PhotosContainer";
 
 
 function App() {
@@ -21,9 +20,11 @@ function App() {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/profile'
-                       render={() => <Profile />}/>
+                       render={() => <Profile/>}/>
                 <Route path='/dialogs'
-                       render={() => <DialogsContainer />}/>
+                       render={() => <DialogsContainer/>}/>
+                <Route path='/photos'
+                       render={() => <PhotosContainer/>}/>
                 <Route path='/news' component={() => <News/>}/>
                 <Route path='/music' component={() => <Music/>}/>
                 <Route path='/settings' component={() => <Settings/>}/>

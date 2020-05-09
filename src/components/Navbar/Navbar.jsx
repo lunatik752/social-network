@@ -13,6 +13,9 @@ const Navbar = () => {
                 <NavLink to='/news' activeClassName={s.active}>News</NavLink>
             </div>
             <div className={s.item}>
+                <NavLink to='/photos' activeClassName={s.active}>Photos</NavLink>
+            </div>
+            <div className={s.item}>
                 <NavLink to='/dialogs' activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
@@ -22,7 +25,7 @@ const Navbar = () => {
                 <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/Users' activeClassName={s.active}>Users</NavLink>
+                <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
             </div>
         </nav>
     )

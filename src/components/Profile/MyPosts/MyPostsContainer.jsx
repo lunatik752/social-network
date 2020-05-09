@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from "prop-types";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profileReduсer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -28,7 +26,3 @@ const mapDispatchToProps = (dispatch) => {
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;
-
-MyPostsContainer.propTypes = {
-    posts: PropTypes.string
-};

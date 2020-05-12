@@ -21,16 +21,6 @@ const photosReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
-        // case ADD_COMMENT :
-        //     return {
-        //         ...state,
-        //         photos: [...state.photos, {comments: [...state.photos.comments,
-        //                 {
-        //                     id: 3,
-        //                     comment: state.photos.newCommentText
-        //                 }], newCommentText: '',
-        //         }
-        //     };
         case UPDATE_NEW_COMMENT_TEXT:
             return {
                 ...state,

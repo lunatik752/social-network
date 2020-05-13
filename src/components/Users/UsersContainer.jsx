@@ -3,13 +3,17 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC} from "../../redux/usersReduсer";
 import * as axios from "axios";
+import Loading from "../../common/Loading/Loading";
+import {setLoadingAC} from "../../redux/loadingReducer";
 
 class UsersComponent extends React.Component {
 
 
     componentDidMount() {
+        this.props.setLoading(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
+                    this.props.setLoading(false);
                     this.props.setUsers(response.data.items);
                     this.props.setTotalUsersCount(response.data.totalCount);
                 }
@@ -18,8 +22,10 @@ class UsersComponent extends React.Component {
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
+        this.props.setLoading(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
+                    this.props.setLoading(false)
                     this.props.setUsers(response.data.items);
                 }
             );
@@ -27,14 +33,16 @@ class UsersComponent extends React.Component {
 
     render() {
         return (
-            <Users users={this.props.users}
-                   onPageChanged={this.onPageChanged}
-                   pageSize={this.props.pageSize}
-                   totalUsersCount={this.props.totalUsersCount}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
-            />
-
+            <>
+                {this.props.isLoading ? <Loading/> :
+                    <Users users={this.props.users}
+                           onPageChanged={this.onPageChanged}
+                           pageSize={this.props.pageSize}
+                           totalUsersCount={this.props.totalUsersCount}
+                           follow={this.props.follow}
+                           unFollow={this.props.unFollow}
+                    />}
+            </>
         )
     }
 
@@ -47,6 +55,7 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isLoading: state.loading.isLoading
     }
 };
 
@@ -66,6 +75,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setTotalUsersCount: (totalCount) => {
             dispatch(setTotalUsersCountAC(totalCount))
+        },
+        setLoading: (isLoading) => {
+            dispatch(setLoadingAC(isLoading))
         }
 
 

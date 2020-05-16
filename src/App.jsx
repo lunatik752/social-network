@@ -20,7 +20,7 @@ function App() {
             <Header/>
             <Navbar/>
             <div className='app-wrapper-content'>
-                <Route path='/profile'
+                <Route path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
                        render={() => <ProfileContainer/>}/>
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}/>

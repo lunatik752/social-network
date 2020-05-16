@@ -1,8 +1,6 @@
 import React from 'react';
-import s from './News.module.css'
-import PropTypes from "prop-types";
 
-const News = (props) => {
+const News = () => {
     return (
         <div>
             News

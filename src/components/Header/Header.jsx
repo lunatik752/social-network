@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import PropTypes from "prop-types";
-import Dialogs from "../Dialogs/Dialogs";
+
 
 const Header = () => {
     return (
@@ -13,6 +12,3 @@ const Header = () => {
 
 export default Header;
 
-// Header.propTypes = {
-//     state: PropTypes.object
-// };

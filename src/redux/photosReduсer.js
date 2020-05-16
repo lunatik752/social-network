@@ -34,9 +34,9 @@ const photosReducer = (state = initialState, action) => {
     }
 }
 
-export const addCommentAC = () => ({type: ADD_COMMENT});
+export const addComment = () => ({type: ADD_COMMENT});
 
-export const updateNewCommentTextAC = (text) =>
+export const updateNewCommentText = (text) =>
     ({type: UPDATE_NEW_COMMENT_TEXT, newText: text});
 
 export default photosReducer;

@@ -14,6 +14,6 @@ export const loadingReducer = (state = initialState, action) => {
     }
 }
 
-export const setLoadingAC = (isLoading) => {
+export const setLoading = (isLoading) => {
     return {type: SET_LOADING, isLoading}
 }

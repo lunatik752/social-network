@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Avatar.module.css';
-import PropTypes from "prop-types";
 
-const Avatar = () => {
+
+const Avatar = (props) => {
     return (
         <div className={s.avatar}>
-            <img src='https://semantica.in/wp-content/uploads/2018/08/av-427845.png' alt='my photo'/>
+            <img src={props.photo} alt='photo'/>
         </div>
     )
 };

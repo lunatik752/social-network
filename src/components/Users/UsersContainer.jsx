@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC} from "../../redux/usersReduсer";
 import * as axios from "axios";
 import Loading from "../../common/Loading/Loading";
-import {setLoadingAC} from "../../redux/loadingReducer";
+import {follow, setCurrentPage, setTotalUsersCount, setUsers, unFollow} from "../../redux/usersReduсer";
+import {setLoading} from "../../redux/loadingReducer";
+
 
 class UsersComponent extends React.Component {
 
@@ -59,30 +60,5 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        setLoading: (isLoading) => {
-            dispatch(setLoadingAC(isLoading))
-        }
 
-
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersComponent);
+export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setLoading})(UsersComponent);

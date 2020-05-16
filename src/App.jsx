@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import PhotosContainer from "./components/Photos/PhotosContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/profile'
-                       render={() => <Profile/>}/>
+                       render={() => <ProfileContainer/>}/>
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}/>
                 <Route path='/photos'

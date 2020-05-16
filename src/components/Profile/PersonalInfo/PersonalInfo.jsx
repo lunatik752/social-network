@@ -1,11 +1,14 @@
 import React from 'react';
 import s from './PersonalInfo.module.css';
-import PropTypes from "prop-types";
 
-const PersonalInfo = () => {
+const PersonalInfo = (props) => {
+    debugger
     return (
         <div className={s.personalInfo}>
-            personal information
+            <p>Name: <span>{props.profile.fullName}</span> </p>
+            <p>status: <span>{props.profile.aboutMe}</span></p>
+
+
         </div>
     )
 };

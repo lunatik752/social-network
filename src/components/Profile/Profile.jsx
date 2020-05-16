@@ -5,13 +5,19 @@ import Avatar from "./Avatar/Avatar";
 import './Profile.module.css'
 import PropTypes from "prop-types";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import Loading from "../../common/Loading/Loading";
 
 
-const Profile = () => {
+const Profile = (props) => {
+
+    if (!props.profile) {
+        return <Loading/>
+    }
+
     return (
         <div className={s.profileWrapper}>
-            <Avatar/>
-            <PersonalInfo/>
+            <Avatar photo={props.profile.photos.large}/>
+            <PersonalInfo profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     )

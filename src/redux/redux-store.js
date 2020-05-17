@@ -5,6 +5,7 @@ import sidebarReducer from "./sidebarReduсer";
 import usersReducer from "./usersReduсer";
 import photosReducer from "./photosReduсer";
 import {loadingReducer} from "./loadingReducer";
+import authReducer from "./authReduсer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -12,7 +13,8 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     photosPage: photosReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    auth: authReducer,
 });
 
 let store = createStore(reducers);

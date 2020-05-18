@@ -2,6 +2,8 @@ import React from 'react';
 import style from './Usere.module.css'
 import userPhoto from '../../assets/image/user.png'
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 
 const Users = (props) => {
@@ -36,35 +38,50 @@ const Users = (props) => {
                             </NavLink>
                         </div>
                         <div>
-                            {user.followed
-                                ? <button onClick={() => {
-                                    props.unFollow(user.id)
-                                }}>Unfollow</button>
+                            {user.followed ? <button onClick={() => {
+                                    usersAPI.unFollowUser(user.id)
+                                        .then(data => {
+                                                if (data.resultCode === 0) {
+                                                    props.unFollow(user.id);
+                                                }
+                                            }
+                                        );
+                                }
+                                }
+
+                                >Unfollow</button>
                                 : <button onClick={() => {
-                                    props.follow(user.id)
+                                    usersAPI.followUser(user.id)
+                                        .then(data => {
+                                                if (data.resultCode === 0) {
+                                                    props.follow(user.id)
+                                                }
+                                            }
+                                        );
                                 }}>Follow</button>}
 
-                        </div>
-                    </span>
+
+                                </div>
+                                </span>
                 <span>
-                        <span>
-                            <div>
+                                <span>
+                                <div>
                                 <span>{user.name}</span>
 
-                            </div>
-                            <div>
+                                </div>
+                                <div>
                                 {user.status}
-                            </div>
-                        </span>
-                        <span>
-                            <div>
+                                </div>
+                                </span>
+                                <span>
+                                <div>
                                 {'user.location.country'}
-                            </div>
-                            <div>
-                            {'user.location.city'}
-                           </div>
-                        </span>
-                    </span>
+                                </div>
+                                <div>
+                                {'user.location.city'}
+                                </div>
+                                </span>
+                                </span>
             </div>)
             }
         </div>

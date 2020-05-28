@@ -8,6 +8,7 @@ import {
     unFollow
 } from "../../redux/usersReduсer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -38,9 +39,7 @@ class UsersComponent extends React.Component {
             </>
         )
     }
-
 }
-
 
 let mapStateToProps = (state) => {
     return {
@@ -54,8 +53,10 @@ let mapStateToProps = (state) => {
 };
 
 
-let AuthRedirectComponent = withAuthRedirect(UsersComponent)
-
-export default connect(mapStateToProps, {
-    follow, unFollow, getUsers, toggleFollowingProgress, setCurrentPage
-})(AuthRedirectComponent);
+export default compose(
+    connect(mapStateToProps, {
+    follow, unFollow, getUsers,
+        toggleFollowingProgress, setCurrentPage
+}),
+    withAuthRedirect
+)(UsersComponent);

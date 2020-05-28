@@ -5,7 +5,9 @@ import {addComment, updateNewCommentText} from "../../redux/photosReduсer";
 
 const mapStateToProps = (state) => {
     return {
-        photos: state.photosPage.photos
+        photos: state.photosPage.photos,
+        isAuth: state.auth.isAuth,
+
     }
 };
 

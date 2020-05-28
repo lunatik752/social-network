@@ -7,6 +7,7 @@ import {
     toggleFollowingProgress,
     unFollow
 } from "../../redux/usersReduсer";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -53,6 +54,8 @@ let mapStateToProps = (state) => {
 };
 
 
+let AuthRedirectComponent = withAuthRedirect(UsersComponent)
+
 export default connect(mapStateToProps, {
     follow, unFollow, getUsers, toggleFollowingProgress, setCurrentPage
-})(UsersComponent);
+})(AuthRedirectComponent);

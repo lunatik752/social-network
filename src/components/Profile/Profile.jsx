@@ -17,7 +17,7 @@ const Profile = (props) => {
     return (
         <div className={s.profileWrapper}>
             <Avatar photo={props.profile.photos.large}/>
-            <PersonalInfo profile={props.profile}/>
+            <PersonalInfo profile={props.profile} updateStatus={props.updateStatus} status={props.status}/>
             <MyPostsContainer/>
         </div>
     )

@@ -7,7 +7,7 @@ const PersonalInfo = (props) => {
         <div className={styles.personalInfo}>
             <p>Name: <span>{props.profile.fullName}</span> </p>
             {/*<p>status: <span>{props.profile.aboutMe}</span></p>*/}
-            <ProfileStatus/>
+            <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
 
         </div>
     )

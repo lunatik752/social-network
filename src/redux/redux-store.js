@@ -8,6 +8,7 @@ import {loadingReducer} from "./loadingReducer";
 import authReducer from "./authReduсer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from "redux-form"
+import appReducer from "./appReduсer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -17,7 +18,8 @@ let reducers = combineReducers({
     photosPage: photosReducer,
     loading: loadingReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

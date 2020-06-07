@@ -3,12 +3,18 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import Loading from "../../common/Loading/Loading";
 import {
-    follow, getUsers, setCurrentPage,
+    follow, requestUsers, setCurrentPage,
     toggleFollowingProgress,
     unFollow
 } from "../../redux/usersReduсer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount, getUsers,
+} from "../../redux/usersSelectors";
 
 
 
@@ -16,11 +22,11 @@ class UsersComponent extends React.Component {
 
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -35,6 +41,7 @@ class UsersComponent extends React.Component {
                            unFollow={this.props.unFollow}
                            followingInProgress={this.props.followingInProgress}
                            toggleFollowingProgress={this.props.toggleFollowingProgress}
+                           currentPage={this.props.currentPage}
                     />}
             </>
         )
@@ -43,19 +50,19 @@ class UsersComponent extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage:getCurrentPage(state),
         isLoading: state.loading.isLoading,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: getFollowingInProgress(state)
     }
 };
 
 
 export default compose(
     connect(mapStateToProps, {
-    follow, unFollow, getUsers,
+    follow, unFollow, requestUsers,
         toggleFollowingProgress, setCurrentPage
 }),
     withAuthRedirect

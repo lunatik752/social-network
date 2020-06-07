@@ -79,10 +79,11 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
 
 
 // Thunk(санка) для загрузки страниц пользователей
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(setLoading(true));
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(page))
+        usersAPI.getUsers(page, pageSize).then(data => {
                 dispatch(setLoading(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));

@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './PersonalInfo.module.css';
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const PersonalInfo = (props) => {
     return (
         <div className={styles.personalInfo}>
             <p>Name: <span>{props.profile.fullName}</span> </p>
-            {/*<p>status: <span>{props.profile.aboutMe}</span></p>*/}
-            <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
+            <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status}/>
 
         </div>
     )

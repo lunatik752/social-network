@@ -43,7 +43,6 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({form: 'loginForm'})(LoginForm)
 
-
 const Login = (props) => {
 
     const onSubmit = (formData) => {

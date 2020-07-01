@@ -1,5 +1,5 @@
-const ADD_COMMENT = 'ADD_COMMENT';
-const UPDATE_NEW_COMMENT_TEXT = 'UPDATE_NEW_COMMENT_TEXT'
+const ADD_COMMENT = 'social-network/photos/ADD_COMMENT';
+const UPDATE_NEW_COMMENT_TEXT = 'social-network/photos/UPDATE_NEW_COMMENT_TEXT'
 
 
 let initialState = {

@@ -1,12 +1,12 @@
 import {usersAPI} from "../api/api";
 import {setLoading} from "./loadingReducer";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
+const FOLLOW = 'social-network/users/FOLLOW';
+const UNFOLLOW = 'ocial-network/users/UNFOLLOW';
+const SET_USERS = 'ocial-network/users/';
+const SET_CURRENT_PAGE = 'ocial-network/users/SET_CURRENT_PAGE';
+const SET_TOTAL_USER_COUNT = 'ocial-network/users/SET_TOTAL_USER_COUNT';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'ocial-network/users/TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
     users: [],

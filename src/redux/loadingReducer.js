@@ -1,4 +1,4 @@
-const SET_LOADING = "loading/reducer/SET_LOADING"
+const SET_LOADING = "social-network/loading/SET_LOADING"
 
 
 const initialState = {

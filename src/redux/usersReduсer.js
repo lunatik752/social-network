@@ -1,5 +1,6 @@
 import {usersAPI} from "../api/api";
 import {setLoading} from "./loadingReducer";
+import {updateObjectInArray} from "../utils/helpers/object-helpers";
 
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'ocial-network/users/UNFOLLOW';
@@ -21,6 +22,7 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
                 users: state.users.map(user => {
                     if (user.id === action.userId) {
                         return {...user, followed: true};
@@ -31,6 +33,7 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
                 users: state.users.map(user => {
                     if (user.id === action.userId) {
                         return {...user, followed: false};
@@ -78,6 +81,7 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
 });
 
 
+
 // Thunk(санка) для загрузки страниц пользователей
 export const requestUsers = (page, pageSize) => async (dispatch) => {
     dispatch(setLoading(true));
@@ -88,24 +92,23 @@ export const requestUsers = (page, pageSize) => async (dispatch) => {
     dispatch(setTotalUsersCount(response.totalCount));
 }
 
-// Thunk(санка) для  unfollow
-export const unFollow = (userId) => async (dispatch) => {
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
     dispatch(toggleFollowingProgress(true, userId));
-    let response = await usersAPI.unFollowUser(userId)
+    let response = await apiMethod(userId)
     if (response.resultCode === 0) {
-        dispatch(unFollowSuccess(userId));
+        dispatch(actionCreator(userId));
     }
     dispatch(toggleFollowingProgress(false, userId));
 }
 
+// Thunk(санка) для  unfollow
+export const unFollow = (userId) => async (dispatch) => {
+    followUnfollowFlow(dispatch, userId, usersAPI.unFollowUser.bind(usersAPI), unFollowSuccess);
+}
+
 // Thunk(санка) для  follow
 export const follow = (userId) => async (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    let response = await usersAPI.followUser(userId)
-    if (response.resultCode === 0) {
-        dispatch(followSuccess(userId));
-    }
-    dispatch(toggleFollowingProgress(false, userId));
+    followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), followSuccess);
 }
 
 

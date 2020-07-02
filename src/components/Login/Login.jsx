@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../../common/FormsControl/FormsControl";
+import {createField, Input} from "../../common/FormsControl/FormsControl";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login, logout} from "../../redux/authReduсer";
@@ -8,31 +8,15 @@ import {Redirect} from "react-router-dom";
 import style from '../../common/FormsControl/FormsControl.module.css';
 
 
-
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder='Email'
-                       name='email'
-                       component={Input}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field placeholder='Password'
-                       name='password'
-                       type='password'
-                       component={Input}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field type='checkbox'
-                       component={Input
-                       } name='rememberMe'
-                       /> remember me
-            </div>
-            {props.error && <div className={style.formSummeryControl}>
-                {props.error}
+        <form onSubmit={handleSubmit}>
+            {createField('Email', 'email', Input, [required])}
+            {createField('Password', 'password', Input, [required], {type: 'password'})}
+            {createField(null, 'rememberMe', Input, [], {type: 'checkbox'}, 'rememberMe')}
+
+            {error && <div className={style.formSummeryControl}>
+                {error}
             </div>}
             <div>
                 <button>Login</button>
@@ -63,7 +47,6 @@ const mapStateToProps = (state) => (
     {
         isAuth: state.auth.isAuth
     })
-
 
 
 export default connect(mapStateToProps, {login, logout})(Login);

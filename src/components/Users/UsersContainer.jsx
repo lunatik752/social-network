@@ -17,12 +17,12 @@ import {
 } from "../../redux/usersSelectors";
 
 
-
 class UsersComponent extends React.Component {
 
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props
+        this.props.requestUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {
@@ -53,7 +53,7 @@ let mapStateToProps = (state) => {
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
-        currentPage:getCurrentPage(state),
+        currentPage: getCurrentPage(state),
         isLoading: state.loading.isLoading,
         followingInProgress: getFollowingInProgress(state)
     }
@@ -62,8 +62,8 @@ let mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, {
-    follow, unFollow, requestUsers,
+        follow, unFollow, requestUsers,
         toggleFollowingProgress, setCurrentPage
-}),
+    }),
     withAuthRedirect
 )(UsersComponent);

@@ -32,7 +32,7 @@ class UsersComponent extends React.Component {
     render() {
         return (
             <>
-                {this.props.isLoading ? <Loading/> :
+                {/*{this.props.isLoading ? <Loading/> :*/}
                     <Users users={this.props.users}
                            onPageChanged={this.onPageChanged}
                            pageSize={this.props.pageSize}
@@ -42,7 +42,8 @@ class UsersComponent extends React.Component {
                            followingInProgress={this.props.followingInProgress}
                            toggleFollowingProgress={this.props.toggleFollowingProgress}
                            currentPage={this.props.currentPage}
-                    />}
+                           isLoading={this.props.isLoading}
+                    />
             </>
         )
     }

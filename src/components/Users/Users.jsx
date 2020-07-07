@@ -2,20 +2,23 @@ import React from 'react';
 import style from './Usere.module.css'
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
+import Loading from "../../common/Loading/Loading";
 
 
-const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users}) => {
+const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading}) => {
 
 
     return (
         <div className={style.usersWrapper}>
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
-                       totalUsersCount={totalUsersCount}
+                       totalItemsCount={totalUsersCount}
                        pageSize={pageSize}
+                       portionSize={10}
+
             />
 
-            {users.map(user => <User user={user}
+            {isLoading ? <Loading/> : users.map(user => <User user={user}
                                      followingInProgress={followingInProgress}
                                      follow={follow}
                                      unFollow={unFollow}

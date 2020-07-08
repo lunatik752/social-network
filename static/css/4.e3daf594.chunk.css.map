@@ -1,0 +1,1 @@
+{"version":3,"sources":["PhotoItem.module.css"],"names":[],"mappings":"AAAA,6DACI,YAAa,CACb,sBAAuB,CACvB,cACJ","file":"4.e3daf594.chunk.css","sourcesContent":[".photosWrapper{\r\n    display: flex;\r\n    justify-content: center;\r\n    flex-wrap: wrap;\r\n}"]}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -39,6 +39,7 @@ class Main extends React.Component {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
+                    <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                     <Route
                         path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
                         render={() => <ProfileContainer/>}/>

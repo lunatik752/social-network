@@ -2,12 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {Redirect, Route, withRouter} from "react-router-dom";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import PhotosContainer from "./components/Photos/PhotosContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
@@ -15,6 +10,13 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReduсer";
 import Loading from "./common/Loading/Loading";
+import {withSuspense} from "./hoc/withSuspense";
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const PhotosContainer = React.lazy(() => import('./components/Photos/PhotosContainer'));
+const News = React.lazy(() => import('./components/News/News'));
+const Music = React.lazy(() => import('./components/Music/Music'));
 
 
 class Main extends React.Component {
@@ -44,13 +46,13 @@ class Main extends React.Component {
                         path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
                         render={() => <ProfileContainer/>}/>
                     <Route path='/dialogs'
-                           render={() => <DialogsContainer/>}/>
+                           render={withSuspense(DialogsContainer)}/>
                     <Route path='/photos'
-                           render={() => <PhotosContainer/>}/>
-                    <Route path='/news' component={() => <News/>}/>
-                    <Route path='/music' component={() => <Music/>}/>
+                           render={withSuspense(PhotosContainer)}/>
+                    <Route path='/news' component={withSuspense(News)}/>
+                    <Route path='/music' component={withSuspense(Music)}/>
                     <Route path='/settings' component={() => <Settings/>}/>
-                    <Route path='/users' component={() => <UsersContainer/>}/>
+                    <Route path='/users' component={withSuspense(UsersContainer)}/>
                     <Route path='/login' component={() => <Login/>}/>
                 </div>
             </div>

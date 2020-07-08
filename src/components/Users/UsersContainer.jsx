@@ -32,18 +32,17 @@ class UsersComponent extends React.Component {
     render() {
         return (
             <>
-                {/*{this.props.isLoading ? <Loading/> :*/}
-                    <Users users={this.props.users}
-                           onPageChanged={this.onPageChanged}
-                           pageSize={this.props.pageSize}
-                           totalUsersCount={this.props.totalUsersCount}
-                           follow={this.props.follow}
-                           unFollow={this.props.unFollow}
-                           followingInProgress={this.props.followingInProgress}
-                           toggleFollowingProgress={this.props.toggleFollowingProgress}
-                           currentPage={this.props.currentPage}
-                           isLoading={this.props.isLoading}
-                    />
+                <Users users={this.props.users}
+                       onPageChanged={this.onPageChanged}
+                       pageSize={this.props.pageSize}
+                       totalUsersCount={this.props.totalUsersCount}
+                       follow={this.props.follow}
+                       unFollow={this.props.unFollow}
+                       followingInProgress={this.props.followingInProgress}
+                       toggleFollowingProgress={this.props.toggleFollowingProgress}
+                       currentPage={this.props.currentPage}
+                       isLoading={this.props.isLoading}
+                />
             </>
         )
     }

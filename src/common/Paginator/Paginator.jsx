@@ -25,8 +25,6 @@ const Paginator = ({totalItemsCount, pageSize, currentPage, onPageChanged, porti
         setPortionNumber(portionNumber + 1);
     }
 
-    debugger
-
     return (
         <div className={styles.paginator}>
             {portionNumber > 1 &&

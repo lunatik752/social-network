@@ -41,7 +41,7 @@ class Main extends React.Component {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
+                    <Route exact path={'/'} render={() => <Redirect to={'/profile/:userId?'}/>}/>
                     <Route
                         path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
                         render={() => <ProfileContainer/>}/>

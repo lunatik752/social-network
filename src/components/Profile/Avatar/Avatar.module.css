@@ -1,6 +1,10 @@
 .avatar {
-    grid-area: avatar;
+
     background: blue;
+    display: flex;
+    flex-direction: column;
+
+
 }
 
 .avatar img {

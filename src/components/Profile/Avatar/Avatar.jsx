@@ -1,12 +1,20 @@
 import React from 'react';
-import s from './Avatar.module.css';
+import styles from './Avatar.module.css';
 import userPhoto from '../../../assets/image/user.png'
 
 
 const Avatar = (props) => {
+
+    const onMainPhotoSelected = (e) => {
+        if (e.target.files.length) {
+            props.savePhoto(e.target.files[0])
+        }
+    }
+debugger
     return (
-        <div className={s.avatar}>
-            <img src={props.photo || userPhoto} alt='photo'/>
+        <div className={styles.avatar}>
+            <img src={props.photos.large || userPhoto} alt='photo'/>
+            {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
         </div>
     )
 };

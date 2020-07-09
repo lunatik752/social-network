@@ -16,7 +16,9 @@ const Profile = (props) => {
 
     return (
         <div className={s.profileWrapper}>
-            <Avatar photo={props.profile.photos.large}/>
+            <Avatar photos={props.profile.photos}
+                    isOwner={props.isOwner}
+                    savePhoto={props.savePhoto}/>
             <PersonalInfo profile={props.profile} updateStatus={props.updateStatus} status={props.status}/>
             <MyPostsContainer/>
         </div>

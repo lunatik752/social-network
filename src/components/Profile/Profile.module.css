@@ -3,7 +3,7 @@
     padding: 10px;
     grid-template-areas: "avatar personalInfo" "myPosts myPosts";
 
-    grid-template-rows: 150px 1fr;
+    grid-template-rows: 200px 1fr;
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 }

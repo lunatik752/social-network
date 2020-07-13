@@ -6,7 +6,7 @@ const ProfileStatusWithHooks = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
-    useEffect(() =>  {
+    useEffect(() => {
         setStatus(props.status)
     }, [props.status])
 
@@ -23,12 +23,11 @@ const ProfileStatusWithHooks = (props) => {
     }
 
 
-
     return (
         <div className={styles.statusWrapper}>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode}>{props.status || 'edit status'}</span>
+                <b>Status: </b><span onDoubleClick={activateEditMode}>{props.status || 'edit status'}</span>
             </div>}
             {editMode &&
             <div>
@@ -37,8 +36,7 @@ const ProfileStatusWithHooks = (props) => {
                        autoFocus={true}
                        value={status}
                        onChange={onStatusChange}/>
-            </div>
-            }
+            </div>}
 
         </div>
     )

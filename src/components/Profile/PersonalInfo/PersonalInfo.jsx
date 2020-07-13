@@ -2,15 +2,49 @@ import React from 'react';
 import styles from './PersonalInfo.module.css';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const PersonalInfo = (props) => {
+const PersonalInfo = ({profile, updateStatus, status}) => {
     return (
         <div className={styles.personalInfo}>
-            <p>Name: <span>{props.profile.fullName}</span> </p>
-            <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status}/>
+
+            <div>
+                <p>Name: <span>{profile.fullName}</span></p>
+            </div>
+
+            <div>
+                <b>About me:</b> {profile.aboutMe}
+            </div>
+
+            <div>
+                <b>Looking for a job:</b> {profile.lookingForAJob ?  'yes' : 'no'}
+            </div>
+
+            {profile.lookingForAJob && <div>
+                <b>My professional skills:</b> {profile.lookingForAJobDescription}
+            </div>}
+
+            <div>
+                <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
+                  return  <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+            })}
+            </div>
+
+
+
+            <ProfileStatusWithHooks updateStatus={updateStatus} status={status}/>
 
         </div>
     )
 };
+
+
+
+const Contact = ({contactTitle, contactValue}) => {
+return (
+    <div>
+        <b>{contactTitle}: </b>{contactValue}
+    </div>
+)
+}
 
 export default PersonalInfo;
 

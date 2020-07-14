@@ -8,6 +8,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Loading from "../../common/Loading/Loading";
 
 
+
 const Profile = (props) => {
 
     if (!props.profile) {
@@ -19,7 +20,11 @@ const Profile = (props) => {
             <Avatar photos={props.profile.photos}
                     isOwner={props.isOwner}
                     savePhoto={props.savePhoto}/>
-            <PersonalInfo profile={props.profile} updateStatus={props.updateStatus} status={props.status}/>
+            <PersonalInfo profile={props.profile}
+                          updateStatus={props.updateStatus}
+                          status={props.status}
+                          isOwner={props.isOwner}
+                          saveProfile={props.saveProfile}/>
             <MyPostsContainer/>
         </div>
     )

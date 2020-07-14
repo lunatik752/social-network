@@ -29,6 +29,7 @@ class Main extends React.Component {
     render() {
 
         if (!this.props.initialized) {
+
             return (
                 <div className='appLoad'>
                     <Loading/>

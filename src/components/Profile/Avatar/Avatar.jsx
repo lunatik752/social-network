@@ -10,7 +10,6 @@ const Avatar = (props) => {
             props.savePhoto(e.target.files[0])
         }
     }
-debugger
     return (
         <div className={styles.avatar}>
             <img src={props.photos.large || userPhoto} alt='photo'/>

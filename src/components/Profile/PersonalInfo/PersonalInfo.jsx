@@ -1,32 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './PersonalInfo.module.css';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileDataForm from "./ProfileDataForm";
 
-const PersonalInfo = ({profile, updateStatus, status}) => {
+
+const PersonalInfo = ({profile, updateStatus, status, isOwner, saveProfile}) => {
+
+    const [editMode, setEditMode] = useState(false);
+    const goToEditMode = () => {
+        setEditMode(true)
+    }
+
+    const onSubmit = (formData) => {
+        saveProfile(formData)
+            .then(
+                () => {
+                    setEditMode(false)
+                }
+            )
+    }
+
+
     return (
         <div className={styles.personalInfo}>
-            <ProfileData profile={profile}/>
-            <ProfileStatusWithHooks updateStatus={updateStatus} status={status}/>
+            {editMode
+                ? <ProfileDataForm profile={profile}
+                                   initialValues={profile}
+                                   onSubmit={onSubmit}/>
+                : <ProfileData profile={profile}
+                               isOwner={isOwner}
+                               goToEditMode={goToEditMode}
+                />}
+            <ProfileStatusWithHooks updateStatus={updateStatus}
+                                    status={status}/>
 
         </div>
     )
 };
 
 
-
-
-
 const Contact = ({contactTitle, contactValue}) => {
-return (
-    <div>
-        <b>{contactTitle}: </b>{contactValue}
-    </div>
-)
+    return (
+        <div>
+            <b>{contactTitle}: </b>{contactValue}
+        </div>
+    )
 }
 
-const ProfileData = ({profile}) => {
+const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return (
+
         <div className={styles.profileData}>
+            {isOwner && <div>
+                <button onClick={goToEditMode}>Edit</button>
+            </div>}
             <div>
                 <p>Name: <span>{profile.fullName}</span></p>
             </div>

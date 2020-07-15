@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Redirect, Route, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -21,8 +21,19 @@ const Music = React.lazy(() => import('./components/Music/Music'));
 
 class Main extends React.Component {
 
+    catchAllUnhandledErrors = (promiseRejectionEvent) =>  {
+        alert('Some error occurred');
+        console.log(promiseRejectionEvent);
+    }
+
     componentDidMount() {
+
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
 
@@ -42,19 +53,22 @@ class Main extends React.Component {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact path={'/'} render={() => <Redirect to={'/profile/:userId?'}/>}/>
-                    <Route
-                        path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
-                        render={() => <ProfileContainer/>}/>
-                    <Route path='/dialogs'
-                           render={withSuspense(DialogsContainer)}/>
-                    <Route path='/photos'
-                           render={withSuspense(PhotosContainer)}/>
-                    <Route path='/news' component={withSuspense(News)}/>
-                    <Route path='/music' component={withSuspense(Music)}/>
-                    <Route path='/settings' component={() => <Settings/>}/>
-                    <Route path='/users' component={withSuspense(UsersContainer)}/>
-                    <Route path='/login' component={() => <Login/>}/>
+                    <Switch>
+                        <Route exact path={'/'} render={() => <Redirect to={'/profile/:userId?'}/>}/>
+                        <Route
+                            path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
+                            render={() => <ProfileContainer/>}/>
+                        <Route path='/dialogs'
+                               render={withSuspense(DialogsContainer)}/>
+                        <Route path='/photos'
+                               render={withSuspense(PhotosContainer)}/>
+                        <Route path='/news' render={withSuspense(News)}/>
+                        <Route path='/music' render={withSuspense(Music)}/>
+                        <Route path='/settings' render={() => <Settings/>}/>
+                        <Route path='/users' render={withSuspense(UsersContainer)}/>
+                        <Route path='/login' render={() => <Login/>}/>
+                        <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
                 </div>
             </div>
         );

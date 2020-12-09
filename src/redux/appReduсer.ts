@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 
 const INITIALIZED_SUCCESS = 'social-network/app/INITIALIZED_SUCCESS';
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 let initialState  = {
     initialized: false,
@@ -21,13 +21,13 @@ const appReducer = (state = initialState, action: AppReducerActionTypes):Initial
     }
 }
 
-type AppReducerActionTypes = initializedSuccess;
+type AppReducerActionTypes = InitializedSuccessActionType;
 
-type initializedSuccess = {
+type InitializedSuccessActionType = {
     type: typeof INITIALIZED_SUCCESS
 }
 
-const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
+const initializedSuccess = (): InitializedSuccessActionType  => ({type: INITIALIZED_SUCCESS});
 
 //Thunk
 export const initializeApp = () => {

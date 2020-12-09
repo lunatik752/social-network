@@ -4,6 +4,13 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 const SET_CAPTCHA_URL_SUCCESS = 'social-network/auth/SET_CAPTCHA_URL_SUCCESS';
 
+// export type InitialStateType = {
+//     userId: number | null,
+//     email: string | null,
+//     login: string | null,
+//     isAuth: boolean,
+//     captchaUrl: string | null // if null the captcha is not required
+// };
 
 let initialState = {
     userId: null,
@@ -13,7 +20,7 @@ let initialState = {
     captchaUrl: null // if null the captcha is not required
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action)=> {
     switch (action.type) {
         case SET_USER_DATA:
         case   SET_CAPTCHA_URL_SUCCESS:
@@ -25,11 +32,36 @@ const authReducer = (state = initialState, action) => {
             return state;
     }
 }
+//
+// type AuthReducerActionType = GetCaptchaUrlSuccessActionType | SetAuthUserDataActionType
+//
+// type GetCaptchaUrlSuccessActionPayloadType = {
+//     captchaUrl: string
+// }
+//
+// type GetCaptchaUrlSuccessActionType = {
+//     type: typeof SET_CAPTCHA_URL_SUCCESS,
+//     payload: GetCaptchaUrlSuccessActionPayloadType
+// }
 
-export const getCaptchaUrlSuccess = (captchaUrl) => ({
+
+export const getCaptchaUrlSuccess = (captchaUrl)=> ({
     type: SET_CAPTCHA_URL_SUCCESS,
     payload: {captchaUrl}
 });
+
+//
+// type SetAuthUserDataActionPayloadType = {
+//     userId: number,
+//     email: string,
+//     login: string,
+//     isAuth: boolean
+// }
+//
+// type SetAuthUserDataActionType = {
+//     type: typeof SET_USER_DATA
+//     payload: SetAuthUserDataActionPayloadType
+// }
 
 export const setAuthUserData = (userId, email, login, isAuth) => ({
     type: SET_USER_DATA,

@@ -22,9 +22,18 @@ let reducers = combineReducers({
     app: appReducer
 });
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)
-));
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+
+export type AppRootStateType = ReturnType<typeof reducers>
+
 
 // let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 

@@ -5,7 +5,7 @@ const INITIALIZED_SUCCESS = 'social-network/app/INITIALIZED_SUCCESS';
 
 export type AppInitialStateType = typeof initialState;
 
-let initialState  = {
+const initialState  = {
     initialized: false,
 };
 

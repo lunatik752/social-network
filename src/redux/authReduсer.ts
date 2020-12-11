@@ -1,5 +1,6 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {Dispatch} from "redux";
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 const SET_CAPTCHA_URL_SUCCESS = 'social-network/auth/SET_CAPTCHA_URL_SUCCESS';
@@ -12,65 +13,64 @@ const SET_CAPTCHA_URL_SUCCESS = 'social-network/auth/SET_CAPTCHA_URL_SUCCESS';
 //     captchaUrl: string | null // if null the captcha is not required
 // };
 
-let initialState = {
-    userId: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    captchaUrl: null // if null the captcha is not required
+export type AuthInitialStateType = {
+    userId: string
+    email: string
+    login: string
+    isAuth: boolean
+    captchaUrl: string
 };
 
-const authReducer = (state = initialState, action)=> {
+
+let initialState = {
+    userId: '',
+    email: '',
+    login: '',
+    isAuth: false,
+    captchaUrl: '' // if null the captcha is not required
+};
+
+const authReducer = (state = initialState, action: AuthReducerActionType): AuthInitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
+            return {
+                ...state,
+                userId: action.userId,
+                email: action.email,
+                login: action.login,
+                isAuth: action.isAuth
+            }
         case   SET_CAPTCHA_URL_SUCCESS:
             return {
                 ...state,
-                ...action.payload
+                captchaUrl: action.captchaUrl
             }
         default:
             return state;
     }
 }
-//
-// type AuthReducerActionType = GetCaptchaUrlSuccessActionType | SetAuthUserDataActionType
-//
-// type GetCaptchaUrlSuccessActionPayloadType = {
-//     captchaUrl: string
-// }
-//
-// type GetCaptchaUrlSuccessActionType = {
-//     type: typeof SET_CAPTCHA_URL_SUCCESS,
-//     payload: GetCaptchaUrlSuccessActionPayloadType
-// }
+
+type AuthReducerActionType = ReturnType<typeof getCaptchaUrlSuccess> | ReturnType<typeof setAuthUserData>
 
 
-export const getCaptchaUrlSuccess = (captchaUrl)=> ({
+
+
+export const getCaptchaUrlSuccess = (captchaUrl: string)=> ({
     type: SET_CAPTCHA_URL_SUCCESS,
-    payload: {captchaUrl}
-});
+    captchaUrl
+} as const);
 
-//
-// type SetAuthUserDataActionPayloadType = {
-//     userId: number,
-//     email: string,
-//     login: string,
-//     isAuth: boolean
-// }
-//
-// type SetAuthUserDataActionType = {
-//     type: typeof SET_USER_DATA
-//     payload: SetAuthUserDataActionPayloadType
-// }
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({
+
+
+export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean) => ({
     type: SET_USER_DATA,
-    payload: {userId, email, login, isAuth}
-});
+    userId, email, login, isAuth
+} as const);
 
 
 //Thunk
-export const getAuthUserData = () => async (dispatch) => {
+export const getAuthUserData = () => async (dispatch: ThunkType) => {
     let response = await authAPI.me();
     if (response.data.resultCode === 0) {
         let {id, email, login} = response.data.data;
@@ -78,7 +78,7 @@ export const getAuthUserData = () => async (dispatch) => {
     }
 }
 
-export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: Dispatch<AuthReducerActionType> | any) => {
     let response = await authAPI.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
@@ -92,18 +92,20 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch) => {
+export const getCaptchaUrl = () => async (dispatch:Dispatch<AuthReducerActionType> | any) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl));
 
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch: Dispatch<AuthReducerActionType> | any) => {
     let response = await authAPI.logout();
     if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
+        dispatch(setAuthUserData('', '', '', false));
     }
 }
 
 export default authReducer;
+
+type ThunkType = Dispatch<AuthReducerActionType>

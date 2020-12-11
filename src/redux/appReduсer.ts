@@ -3,13 +3,13 @@ import {Dispatch} from "redux";
 
 const INITIALIZED_SUCCESS = 'social-network/app/INITIALIZED_SUCCESS';
 
-export type InitialStateType = typeof initialState;
+export type AppInitialStateType = typeof initialState;
 
 let initialState  = {
     initialized: false,
 };
 
-const appReducer = (state = initialState, action: AppReducerActionTypes):InitialStateType => {
+const appReducer = (state = initialState, action: AppReducerActionTypes):AppInitialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {

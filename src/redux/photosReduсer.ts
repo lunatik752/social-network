@@ -1,6 +1,17 @@
 const ADD_COMMENT = 'social-network/photos/ADD_COMMENT';
 const UPDATE_NEW_COMMENT_TEXT = 'social-network/photos/UPDATE_NEW_COMMENT_TEXT'
 
+type CommentsType ={
+    id: number
+    comment: string
+}
+
+type PhotosType = {
+    id: number
+    urlPhoto: string
+    title: string
+    comments: Array<CommentsType>
+}
 
 let initialState = {
     photos:
@@ -13,11 +24,13 @@ let initialState = {
                     {id: 1, comment: 'nice photo'},
                     {id: 2, comment: 'very nice photo'},
                 ],
-            }],
+            }] as Array<PhotosType>,
     newCommentText: ''
 }
 
-const photosReducer = (state = initialState, action) => {
+type PhotosReducerInitialStateType = typeof initialState
+
+const photosReducer = (state = initialState, action: PhotosReducerActionsType) : PhotosReducerInitialStateType=> {
 
 
     switch (action.type) {
@@ -25,8 +38,7 @@ const photosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 photos: {
-                    ...state.photos,
-                    newCommentText: action.newCommentText
+                    ...state.photos
                 }
             };
         default:
@@ -34,9 +46,11 @@ const photosReducer = (state = initialState, action) => {
     }
 }
 
-export const addComment = () => ({type: ADD_COMMENT});
+type PhotosReducerActionsType = ReturnType<typeof addComment> | ReturnType<typeof updateNewCommentText>
 
-export const updateNewCommentText = (text) =>
-    ({type: UPDATE_NEW_COMMENT_TEXT, newText: text});
+export const addComment = () => ({type: ADD_COMMENT} as const);
+
+export const updateNewCommentText = (text: string) =>
+    ({type: UPDATE_NEW_COMMENT_TEXT, newText: text} as const);
 
 export default photosReducer;

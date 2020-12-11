@@ -1,6 +1,6 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {PhotosType, PostType, ProfileType} from "../types/types";
+import {ProfilePhotosType, PostType, ProfileType} from "../types/types";
 
 const ADD_POST = 'social-network/profile/ADD-POST';
 const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE';
@@ -64,7 +64,7 @@ export const addPost = (newPostText: string) => ({type: ADD_POST, newPostText} a
 const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 const setStatus = (status: string) => ({type: SET_STATUS, status} as const);
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const);
-export const savePhotoSuccess = (photos: PhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos} as const);
+export const savePhotoSuccess = (photos: ProfilePhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos} as const);
 
 
 export default profileReducer;

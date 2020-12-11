@@ -1,5 +1,5 @@
 
-export type PhotosType = {
+export type ProfilePhotosType = {
     small: string
     large: string
 }
@@ -26,5 +26,5 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
-    photos: PhotosType
+    photos: ProfilePhotosType
 }

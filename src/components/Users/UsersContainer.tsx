@@ -77,7 +77,6 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 };
 
-//TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
 export default compose(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppRootStateType>(mapStateToProps, {
         follow, unFollow, requestUsers,

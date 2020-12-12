@@ -1,14 +1,8 @@
+import {DialogType, MessageType} from "../types/types";
+
 const ADD_MESSAGE = 'social-network/dialogs/ADD-MESSAGE';
 
-type DialogType = {
-    name: string
-    id: number
-}
 
-type MessageType = {
-    message: string
-    id: number
-}
 
 const initialState = {
         dialogs: [

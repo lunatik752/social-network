@@ -1,11 +1,13 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
 import {NavLink} from "react-router-dom";
-import PropTypes from "prop-types";
 
+type PropsType = {
+    id: number
+    name: string
+}
 
-
-const DialogsItem = (props) => {
+const DialogsItem = (props:PropsType) => {
     return (
         <div className={s.dialog + ' ' + s.active}>
             <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
@@ -15,8 +17,3 @@ const DialogsItem = (props) => {
 
 
 export default DialogsItem;
-
-DialogsItem.propTypes = {
-    name: PropTypes.string,
-    id: PropTypes.number
-};

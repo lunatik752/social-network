@@ -3,9 +3,22 @@ import style from './Usere.module.css'
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
 import Loading from "../../common/Loading/Loading";
+import { UserType } from '../../types/types';
 
 
-const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading}) => {
+type PropsTypes = {
+    pageSize: number
+    currentPage: number
+    onPageChanged: (page: number) => void
+    totalUsersCount: number
+    followingInProgress: Array<number>
+    follow: () => void
+    unFollow: () => void
+    users: Array<UserType>
+    isLoading: boolean
+}
+
+const Users:React.FC<PropsTypes> = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading}) => {
 
 
     return (

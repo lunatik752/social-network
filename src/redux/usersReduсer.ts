@@ -1,6 +1,6 @@
 import {usersAPI} from "../api/api";
 import {setLoading} from "./loadingReducer";
-import {ProfilePhotosType} from "../types/types";
+import {ProfilePhotosType, UserType} from "../types/types";
 
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'social-network/users/UNFOLLOW';
@@ -10,13 +10,7 @@ const SET_TOTAL_USER_COUNT = 'social-network/users/SET_TOTAL_USER_COUNT';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
-type UserType = {
-    name: string
-    id: number
-    photos: ProfilePhotosType
-    status: string,
-    followed: boolean
-}
+
 
 const initialState = {
     users: [] as Array<UserType>,

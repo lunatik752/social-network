@@ -46,3 +46,15 @@ export type MessageType = {
     message: string
     id: number
 }
+
+export type CommentsType ={
+    id: number
+    comment: string
+}
+
+export type PhotosType = {
+    id: number
+    urlPhoto: string
+    title: string
+    comments: Array<CommentsType>
+}

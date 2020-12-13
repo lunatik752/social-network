@@ -1,9 +1,13 @@
 import React from 'react';
 import style from './Photos.module.css'
 import PhotoItem from "./PhotoItem/PhotoItem";
+import {PhotosType} from "../../types/types";
 
+type PropsType = {
+    photos: Array<PhotosType>
+}
 
-const Photos = (props) => {
+const Photos: React.FC<PropsType> = (props) => {
 
 
     let photosElement = props.photos.map(photo => <PhotoItem key={photo.id}

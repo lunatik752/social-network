@@ -1,17 +1,8 @@
+import { PhotosType } from "../types/types";
+
 const ADD_COMMENT = 'social-network/photos/ADD_COMMENT';
 const UPDATE_NEW_COMMENT_TEXT = 'social-network/photos/UPDATE_NEW_COMMENT_TEXT'
 
-type CommentsType ={
-    id: number
-    comment: string
-}
-
-type PhotosType = {
-    id: number
-    urlPhoto: string
-    title: string
-    comments: Array<CommentsType>
-}
 
 let initialState = {
     photos:

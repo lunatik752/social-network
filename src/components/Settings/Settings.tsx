@@ -1,7 +1,10 @@
 import React from 'react';
 
+type PropsType = {
 
-const Settings = (props) => {
+}
+
+const Settings: React.FC<PropsType> = () => {
     return (
         <div>
             Settings

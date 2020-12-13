@@ -1,6 +1,9 @@
 import React from 'react';
 
-const News = () => {
+type PropsType = {
+}
+
+const News: React.FC<PropsType> = () => {
     return (
         <div>
             News

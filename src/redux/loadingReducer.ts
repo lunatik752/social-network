@@ -16,7 +16,7 @@ export const  loadingReducer = (state = initialState, action: LoadingReducerActi
     }
 }
 
-type LoadingReducerActionsType = ReturnType<typeof setLoading>
+export type LoadingReducerActionsType = ReturnType<typeof setLoading>
 
 export const setLoading = (isLoading: boolean) => {
     return {type: SET_LOADING, isLoading}

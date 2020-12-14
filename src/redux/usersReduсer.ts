@@ -1,6 +1,8 @@
 import {usersAPI} from "../api/api";
-import {setLoading} from "./loadingReducer";
-import {ProfilePhotosType, UserType} from "../types/types";
+import {UserType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppRootStateType} from "./redux-store";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'social-network/users/UNFOLLOW';
@@ -8,8 +10,6 @@ const SET_USERS = 'social-network/users/';
 const SET_CURRENT_PAGE = 'social-network/users/SET_CURRENT_PAGE';
 const SET_TOTAL_USER_COUNT = 'social-network/users/SET_TOTAL_USER_COUNT';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS';
-
-
 
 
 const initialState = {
@@ -94,17 +94,19 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 } as const);
 
 
+type ThunkType = ThunkAction<Promise<void>, AppRootStateType, {}, UsersReducerActionsType>
+
 // Thunk(санка) для загрузки страниц пользователей
-export const requestUsers = (page: number, pageSize: number) => async (dispatch: any) => {
-    dispatch(setLoading(true));
+export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+    // dispatch(setLoading(true));
     dispatch(setCurrentPage(page))
     let response = await usersAPI.getUsers(page, pageSize);
-    dispatch(setLoading(false));
+    // dispatch(setLoading(false));
     dispatch(setUsers(response.items));
     dispatch(setTotalUsersCount(response.totalCount));
 }
 
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersReducerActionsType>, userId: number, apiMethod: any, actionCreator: (userId: number) => ReturnType<typeof followSuccess> | ReturnType<typeof unFollowSuccess>) => {
     dispatch(toggleFollowingProgress(true, userId));
     let response = await apiMethod(userId)
     if (response.resultCode === 0) {
@@ -114,14 +116,13 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any,
 }
 
 // Thunk(санка) для  unfollow
-export const unFollow = (userId: number) => async (dispatch: any) => {
-   await followUnfollowFlow(dispatch, userId, usersAPI.unFollowUser.bind(usersAPI), unFollowSuccess);
+export const unFollow = (userId: number): ThunkType => async (dispatch) => {
+    await _followUnfollowFlow(dispatch, userId, usersAPI.unFollowUser.bind(usersAPI), unFollowSuccess);
 }
 
 // Thunk(санка) для  follow
-export const follow = (userId: number) => async (dispatch: any) => {
-   await followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), followSuccess);
+export const follow = (userId: number): ThunkType => async (dispatch: any) => {
+    await _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), followSuccess);
 }
-
 
 export default usersReducer;

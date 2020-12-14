@@ -3,6 +3,7 @@ import {UserType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./redux-store";
 import {Dispatch} from "redux";
+import { setLoading } from "./loadingReducer";
 
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'social-network/users/UNFOLLOW';
@@ -94,14 +95,15 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 } as const);
 
 
-type ThunkType = ThunkAction<Promise<void>, AppRootStateType, {}, UsersReducerActionsType>
+type ThunkType = ThunkAction<Promise<void>, AppRootStateType, {}, ThunkActionType>
+type ThunkActionType = UsersReducerActionsType | ReturnType<typeof setLoading>
 
 // Thunk(санка) для загрузки страниц пользователей
 export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
-    // dispatch(setLoading(true));
+    dispatch(setLoading(true));
     dispatch(setCurrentPage(page))
     let response = await usersAPI.getUsers(page, pageSize);
-    // dispatch(setLoading(false));
+    dispatch(setLoading(false));
     dispatch(setUsers(response.items));
     dispatch(setTotalUsersCount(response.totalCount));
 }

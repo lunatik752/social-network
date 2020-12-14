@@ -2,16 +2,24 @@ import React, {useState} from 'react';
 import styles from './PersonalInfo.module.css';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
+import {ContactsType, ProfileType} from "../../../types/types";
 
+type PersonalInfoPropsType = {
+    profile: ProfileType
+    updateStatus: () => void
+    status: string
+    isOwner: boolean
+    saveProfile: (formData: any) => Promise<any>
+}
 
-const PersonalInfo = ({profile, updateStatus, status, isOwner, saveProfile}) => {
+const PersonalInfo: React.FC<PersonalInfoPropsType> = ({profile, updateStatus, status, isOwner, saveProfile}) => {
 
-    const [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState<boolean>(false);
     const goToEditMode = () => {
         setEditMode(true)
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: any) => {
         saveProfile(formData)
             .then(
                 () => {
@@ -38,8 +46,12 @@ const PersonalInfo = ({profile, updateStatus, status, isOwner, saveProfile}) => 
     )
 };
 
+type ContactPropsType = {
+    contactTitle: string
+    contactValue: ContactsType
+}
 
-const Contact = ({contactTitle, contactValue}) => {
+const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
     return (
         <div>
             <b>{contactTitle}: </b>{contactValue}
@@ -47,7 +59,13 @@ const Contact = ({contactTitle, contactValue}) => {
     )
 }
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+}
+
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return (
 
         <div className={styles.profileData}>
@@ -72,6 +90,7 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
 
             <div>
                 <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
+                // @ts-ignore
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
             })}
             </div>

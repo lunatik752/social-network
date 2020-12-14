@@ -1,10 +1,12 @@
 import React from 'react';
 import s from './Post.module.css';
-import PropTypes from "prop-types";
 
+type PropsType = {
+    message: string
+    countLikes: number
+}
 
-
-const Post = (props) => {
+const Post: React.FC<PropsType> = (props) => {
     return (
         <div className={s.item}>
             <img src='https://newscor.net/wp-content/uploads/9dae4c5ef70508e82f3bed0dcbac2209-800x700.jpg' alt='ava'/>
@@ -18,7 +20,3 @@ const Post = (props) => {
 
 export default Post;
 
-Post.propTypes = {
-    message: PropTypes.string,
-    countLikes: PropTypes.number
-};

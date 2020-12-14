@@ -3,11 +3,27 @@ import './Profile.module.css'
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile} from "../../redux/profileReduсer";
-import {withRouter} from "react-router-dom";
+import {withRouter, RouteProps} from "react-router-dom";
 import {compose} from "redux";
+import {AppRootStateType} from "../../redux/redux-store";
+import {ProfileType} from "../../types/types";
 
+type MapStatePropsType = {
+    profile: ProfileType
+    status: string
+    authorizedUserId: number
+    isAuth: boolean
+}
 
-class ProfileContainer extends React.Component {
+type MapDispatchPropsType = {
+    getUserProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class ProfileContainer extends React.Component<any> {
 
     refreshProfile() {
         let userId = this.props.match.params.userId;
@@ -23,7 +39,7 @@ class ProfileContainer extends React.Component {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
         if (this.props.match.params !== prevProps.match.params) {
             this.refreshProfile()
         }
@@ -36,12 +52,13 @@ class ProfileContainer extends React.Component {
                      profile={this.props.profile}
                      updateStatus={this.props.updateStatus}
                      savePhoto={this.props.savePhoto}
-                     saveProfile={this.props.saveProfile}/>
+                     saveProfile={this.props.saveProfile}
+            status={this.props.status}/>
         )
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: AppRootStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,

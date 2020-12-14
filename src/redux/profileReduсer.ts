@@ -16,7 +16,8 @@ let initialState = {
         {id: 2, message: 'This is a post.', countLikes: 12}
     ] as Array<PostType>,
     status: '',
-    profile: null as ProfileType | null
+    profile: null as ProfileType | null,
+    newPostText: ''
 };
 
 type ProfileReducerInitialStateType = typeof initialState

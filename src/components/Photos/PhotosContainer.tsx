@@ -3,7 +3,7 @@ import Photos from "./Photos";
 import {addComment, updateNewCommentText} from "../../redux/photosReduсer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {AppRootStateType} from "../../redux/redux-store";
-import {PhotosType, UserType} from "../../types/types";
+import {PhotosType} from "../../types/types";
 
 type MapStatePropsType = {
     photos: Array<PhotosType>
@@ -11,8 +11,6 @@ type MapStatePropsType = {
 
 type MapDispatchPropsType = {
 }
-
-type PropsType = MapStatePropsType & MapDispatchPropsType
 
 let AuthRedirectComponent = withAuthRedirect(Photos)
 

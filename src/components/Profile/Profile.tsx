@@ -3,13 +3,20 @@ import s from './Profile.module.css';
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
 import Avatar from "./Avatar/Avatar";
 import './Profile.module.css'
-import PropTypes from "prop-types";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Loading from "../../common/Loading/Loading";
+import {ProfileType} from "../../types/types";
 
+type PropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    savePhoto: () => void
+    saveProfile: (formData: any) => Promise<any>
+    updateStatus: () => void
+    status: string
+}
 
-
-const Profile = (props) => {
+const Profile: React.FC<PropsType> = (props) => {
 
     if (!props.profile) {
         return <Loading/>
@@ -31,7 +38,3 @@ const Profile = (props) => {
 };
 
 export default Profile;
-
-Profile.propTypes = {
-    state: PropTypes.string
-};

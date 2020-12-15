@@ -1,6 +1,6 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, ResultCodeEnum, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {ProfilePhotosType, PostType, ProfileType} from "../types/types";
+import {PostType, ProfilePhotosType, ProfileType} from "../types/types";
 
 const ADD_POST = 'social-network/profile/ADD-POST';
 const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE';
@@ -72,7 +72,7 @@ export default profileReducer;
 
 export const getUserProfile = (userId: number) => async (dispatch: any) => {
     let response = await usersAPI.getProfile(userId);
-    dispatch(setUserProfile(response.data));
+    dispatch(setUserProfile(response));
 }
 
 
@@ -95,8 +95,8 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 
 export const savePhoto = (file: any) => async (dispatch: any) => {
     const response = await profileAPI.savePhoto(file);
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.photos));
+    if (response.resultCode === ResultCodeEnum.Success) {
+        dispatch(savePhotoSuccess(response.data));
     }
 }
 export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {

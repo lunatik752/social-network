@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ProfileType} from "../types/types";
+import {ProfilePhotosType, ProfileType, UserType} from "../types/types";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -7,28 +7,29 @@ const instance = axios.create({
     headers: {'API-KEY': '90bf912e-ca5a-4b96-9037-858f400fe7a5'},
 });
 
+type GetUsersResponseDataType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string
+}
+
+
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`
-        ).then(response => {
-            return response.data;
-        })
+        return instance.get<GetUsersResponseDataType>(`users?page=${currentPage}&count=${pageSize}`
+        ).then(response => response.data)
     },
     unFollowUser(userId: number) {
-        return instance.delete(`follow/${userId}`
-        ).then(response => {
-            return response.data;
-        })
+         return instance.delete<ResponseDataType<{},{}>>(`follow/${userId}`
+        ).then(response => response.data)
     },
     followUser(userId: number) {
-        return instance.post(`follow/${userId}`, {}
-        ).then(response => {
-            return response.data;
-        })
+        return instance.post<ResponseDataType<{},{}>>(`follow/${userId}`, {}
+        ).then(response => response.data)
     },
     getProfile(userId: number) {
         console.warn('Obsolete method. Please profileAPI object.')
-        return profileAPI.getProfile(userId)
+        return profileAPI.getProfile(userId).then(res => res.data)
     },
 }
 
@@ -41,7 +42,7 @@ export enum ResultCodeForCaptchaEnum  {
     CaptchaIsRequired = 10
 }
 
-type AuthResponseDataType<T, D> = {
+type ResponseDataType<T, D> = {
     data: T
     resultCode: ResultCodeEnum | D
     messages: Array<string>
@@ -62,36 +63,39 @@ export type LoginParamsType = {
 
 export const authAPI = {
     me() {
-        return instance.get<AuthResponseDataType<MeParamsType, {}>>(`auth/me`).then(res => res.data)
+        return instance.get<ResponseDataType<MeParamsType, {}>>(`auth/me`).then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
-        return instance.post<AuthResponseDataType<LoginParamsType, ResultCodeForCaptchaEnum>>(`auth/login`, {email, password, rememberMe, captcha}).then(res => res.data)
+        return instance.post<ResponseDataType<LoginParamsType, ResultCodeForCaptchaEnum>>(`auth/login`, {email, password, rememberMe, captcha}).then(res => res.data)
     },
     logout() {
-        return instance.delete(`auth/login`);
+        return instance.delete<ResponseDataType<{}, {}>>(`auth/login`);
     },
 }
+
 
 export const securityAPI = {
     getCaptchaUrl() {
-        return instance.get(`/security/get-captcha-url`,)
+        return instance.get<{url: string}>(`/security/get-captcha-url`,)
     }
 }
 
+
+
 export const profileAPI = {
     getProfile(userId: number) {
-        return instance.get(`profile/${userId}`)
+        return instance.get<ProfileType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status})
+        return instance.put<ResponseDataType<{}, {}>>(`profile/status`, {status})
     },
     savePhoto(file: any) {
         const formData = new FormData();
         formData.append("image", file);
-        return instance.put(`profile/photo`, formData, {
+        return instance.put<ResponseDataType<ProfilePhotosType, {}>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -101,6 +105,6 @@ export const profileAPI = {
         )
     },
     saveProfile(profile: ProfileType) {
-        return instance.put(`profile`, profile)
+        return instance.put<ResponseDataType<{}, {}>>(`profile`, profile)
     }
 }

@@ -1,9 +1,9 @@
-import {usersAPI} from "../api/api";
 import {UserType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
 import {setLoading, LoadingReducerActionsType} from "./loadingReducer";
+import {usersAPI} from "../api/users-api";
 
 
 

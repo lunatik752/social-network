@@ -1,11 +1,8 @@
 import {UserType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppRootStateType, InferActionsTypes} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
-import {setLoading, LoadingReducerActionsType} from "./loadingReducer";
+import {LoadingReducerActionsType, setLoading} from "./loadingReducer";
 import {usersAPI} from "../api/users-api";
-
-
 
 
 const initialState = {
@@ -16,9 +13,8 @@ const initialState = {
     followingInProgress: [] as Array<number> // Array of users id
 };
 
-type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
+export const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
     switch (action.type) {
         case 'social-network/users/FOLLOW':
             return {
@@ -69,20 +65,23 @@ const usersReducer = (state = initialState, action: UsersReducerActionsType): In
             return state;
     }
 }
-type UsersReducerActionsType = InferActionsTypes<typeof UserReducerActions>
 
 export const UserReducerActions = {
     followSuccess: (userId: number) => ({type: 'social-network/users/FOLLOW', userId} as const),
     unFollowSuccess: (userId: number) => ({type: 'social-network/users/UNFOLLOW', userId} as const),
     setUsers: (users: Array<UserType>) => ({type: 'social-network/users/SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'social-network/users/SET_CURRENT_PAGE', currentPage} as const),
-    setTotalUsersCount: (totalUsersCount: number) => ({type: 'social-network/users/SET_TOTAL_USER_COUNT', totalUsersCount} as const),
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({type: 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
+    setTotalUsersCount: (totalUsersCount: number) => ({
+        type: 'social-network/users/SET_TOTAL_USER_COUNT',
+        totalUsersCount
+    } as const),
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({
+        type: 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS',
+        isFetching,
+        userId
+    } as const)
 }
 
-
-type ThunkType = ThunkAction<Promise<void>, AppRootStateType, {}, ThunkActionType>
-type ThunkActionType = UsersReducerActionsType | LoadingReducerActionsType
 
 // Thunk(санка) для загрузки страниц пользователей
 export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
@@ -109,8 +108,10 @@ export const unFollow = (userId: number): ThunkType => async (dispatch) => {
 }
 
 // Thunk(санка) для  follow
-export const follow = (userId: number): ThunkType => async (dispatch: any) => {
+export const follow = (userId: number): ThunkType => async (dispatch) => {
     await _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), UserReducerActions.followSuccess);
 }
 
-export default usersReducer;
+type InitialStateType = typeof initialState
+type UsersReducerActionsType = InferActionsTypes<typeof UserReducerActions>
+type ThunkType = BaseThunkType<UsersReducerActionsType | LoadingReducerActionsType>

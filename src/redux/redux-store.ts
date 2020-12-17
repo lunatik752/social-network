@@ -1,8 +1,8 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux";
-import profileReducer from "./profileReduсer";
-import dialogsReducer from "./dialogsReduсer";
-import sidebarReducer from "./sidebarReduсer";
-import usersReducer from "./usersReduсer";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReduсer";
+import {sidebarReducer} from "./sidebarReduсer";
+import {usersReducer} from "./usersReduсer";
 import photosReducer from "./photosReduсer";
 import {loadingReducer} from "./loadingReducer";
 import {authReducer} from "./authReduсer";

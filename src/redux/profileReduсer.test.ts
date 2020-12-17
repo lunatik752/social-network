@@ -1,16 +1,19 @@
-import profileReducer, {addPost, deletePost} from "./profileReduсer";
-import React from "react";
+import {profileActions, profileReducer} from "./profileReducer";
+import {ProfileType} from "../types/types";
 
 let state = {
     posts: [
         {id: 1, message: 'Hello!!!', countLikes: 3},
         {id: 2, message: 'This is a post.', countLikes: 12}
-    ]
+    ],
+    status: '',
+    profile: null,
+    newPostText: ''
 };
 
 test('length of array posts should be incremented', () => {
     // 1. test data (начальные данные для тестирования)
-    let action = addPost('Hello world');
+    let action = profileActions.addPost('Hello world');
     // 2. action (действие производимое с тестируемыми данными)
     let newState = profileReducer(state, action);
     // 3. expectation (данные ожидаемые на выходе)
@@ -19,7 +22,7 @@ test('length of array posts should be incremented', () => {
 
 test('message of new post should be correct', () => {
     // 1. test data (начальные данные для тестирования)
-    let action = addPost('Hello world');
+    let action = profileActions.addPost('Hello world');
     // 2. action (действие производимое с тестируемыми данными)
     let newState = profileReducer(state, action);
     // 3. expectation (данные ожидаемые на выходе)
@@ -28,7 +31,7 @@ test('message of new post should be correct', () => {
 
 test('like counts of new post should be 0', () => {
     // 1. test data (начальные данные для тестирования)
-    let action = addPost('Hello world');
+    let action = profileActions.addPost('Hello world');
     // 2. action (действие производимое с тестируемыми данными)
     let newState = profileReducer(state, action);
     // 3. expectation (данные ожидаемые на выходе)
@@ -37,7 +40,7 @@ test('like counts of new post should be 0', () => {
 
 test('after deleting length of array posts should be decrement ', () => {
     // 1. test data (начальные данные для тестирования)
-    let action = deletePost(2);
+    let action = profileActions.deletePost(2);
     // 2. action (действие производимое с тестируемыми данными)
     let newState = profileReducer(state, action);
     // 3. expectation (данные ожидаемые на выходе)
@@ -46,7 +49,7 @@ test('after deleting length of array posts should be decrement ', () => {
 
 test('after deleting length sould not be  decrement if id is incorrect', () => {
     // 1. test data (начальные данные для тестирования)
-    let action = deletePost(1000);
+    let action = profileActions.deletePost(1000);
     // 2. action (действие производимое с тестируемыми данными)
     let newState = profileReducer(state, action);
     // 3. expectation (данные ожидаемые на выходе)

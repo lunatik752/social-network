@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 import {logout} from "../../redux/authReduсer";
-import {AppRootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/store";
 
 type MapStatePropsType = {
     isAuth: boolean

@@ -2,7 +2,7 @@ import {ResultCodeEnum} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {PostType, ProfilePhotosType, ProfileType} from "../types/types";
 import {profileAPI} from "../api/profile-api";
-import {BaseThunkType, InferActionsTypes} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./store";
 
 
 let initialState = {

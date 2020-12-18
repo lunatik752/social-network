@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import Photos from "./Photos";
 import {addComment, updateNewCommentText} from "../../redux/photosReduсer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {AppRootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/store";
 import {PhotosType} from "../../types/types";
 
 type MapStatePropsType = {

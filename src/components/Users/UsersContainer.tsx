@@ -11,7 +11,7 @@ import {
     getUsers,
 } from "../../redux/usersSelectors";
 import {UserType} from "../../types/types";
-import {AppRootStateType} from '../../redux/redux-store';
+import {AppRootStateType} from '../../redux/store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type MapStatePropsType = {

@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import Main from "./Main";
-import store from "./redux/redux-store";
+import store from "./redux/store";
 
 
 function App() {

@@ -1,6 +1,6 @@
 import {getAuthUserData} from "./authReduсer";
 import {Dispatch} from "redux";
-import {InferActionsTypes} from "./redux-store";
+import {InferActionsTypes} from "./store";
 
 
 export type AppInitialStateType = typeof initialState;

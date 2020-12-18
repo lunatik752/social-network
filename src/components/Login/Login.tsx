@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../../redux/authReduсer";
 import {Redirect} from "react-router-dom";
 import style from '../../common/FormsControl/FormsControl.module.css';
-import {AppRootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/store";
 
 type LoginFormOwnPropsType = {
     captchaUrl: string | null

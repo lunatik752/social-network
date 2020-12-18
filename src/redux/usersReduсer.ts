@@ -1,5 +1,5 @@
 import {UserType} from "../types/types";
-import {BaseThunkType, InferActionsTypes} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./store";
 import {Dispatch} from "redux";
 import {LoadingReducerActionsType, setLoading} from "./loadingReducer";
 import {usersAPI} from "../api/users-api";

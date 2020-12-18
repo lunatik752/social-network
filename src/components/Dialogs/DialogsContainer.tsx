@@ -4,6 +4,7 @@ import {DialogReducerInitialStateType, dialogsActions} from "../../redux/dialogs
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {AppRootStateType} from "../../redux/store";
+import React from "react";
 
 type MapStatePropsType = {
     dialogsPage: DialogReducerInitialStateType
@@ -19,7 +20,7 @@ let mapStateToProps = (state: AppRootStateType) => {
     }
 };
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {addMessage: dialogsActions.addMessage}),
     withAuthRedirect
 )(Dialogs)

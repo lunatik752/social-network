@@ -11,6 +11,7 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReduсer";
 import Loading from "./common/Loading/Loading";
 import {withSuspense} from "./hoc/withSuspense";
+import {AppRootStateType} from "./redux/store";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
@@ -19,11 +20,16 @@ const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
 
 
-class Main extends React.Component {
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+    initializeApp: () => void
+}
 
-    catchAllUnhandledErrors = (promiseRejectionEvent) =>  {
+class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) =>  {
         alert('Some error occurred');
-        console.log(promiseRejectionEvent);
+        // console.log(promiseRejectionEvent);
     }
 
     componentDidMount() {
@@ -75,11 +81,11 @@ class Main extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
     initialized: state.app.initialized
 });
 
-export default compose(
+export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(Main);
 

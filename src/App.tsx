@@ -6,7 +6,7 @@ import Main from "./Main";
 import store from "./redux/store";
 
 
-function App() {
+const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>

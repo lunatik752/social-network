@@ -25,6 +25,11 @@ type MapDispatchToPropsType = {
     initializeApp: () => void
 }
 
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedPhotos= withSuspense(PhotosContainer)
+const SuspendedUsers= withSuspense(UsersContainer)
+
+
 class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
 
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) =>  {
@@ -65,13 +70,13 @@ class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType>
                             path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
                             render={() => <ProfileContainer/>}/>
                         <Route path='/dialogs'
-                               render={withSuspense(DialogsContainer)}/>
+                               render={() => <SuspendedDialogs/>}/>
                         <Route path='/photos'
-                               render={withSuspense(PhotosContainer)}/>
+                               render={() => <SuspendedPhotos/>}/>
                         <Route path='/news' render={withSuspense(News)}/>
                         <Route path='/music' render={withSuspense(Music)}/>
                         <Route path='/settings' render={() => <Settings/>}/>
-                        <Route path='/users' render={withSuspense(UsersContainer)}/>
+                        <Route path='/users' render={() => <SuspendedUsers/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                         <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
                     </Switch>

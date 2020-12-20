@@ -7,7 +7,7 @@ type PropsType = {
     name: string
 }
 
-const DialogsItem = (props:PropsType) => {
+const DialogsItem: React.FC<PropsType> = (props) => {
     return (
         <div className={s.dialog + ' ' + s.active}>
             <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>

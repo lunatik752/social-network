@@ -34,11 +34,10 @@ class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType>
 
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) =>  {
         alert('Some error occurred');
-        // console.log(promiseRejectionEvent);
+        console.log(e);
     }
 
     componentDidMount() {
-
         this.props.initializeApp();
         window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }

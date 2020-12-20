@@ -1,5 +1,5 @@
 import {ResultCodeEnum} from "../api/api";
-import {stopSubmit} from "redux-form";
+import {FormAction, stopSubmit} from "redux-form";
 import {PostType, ProfilePhotosType, ProfileType} from "../types/types";
 import {profileAPI} from "../api/profile-api";
 import {BaseThunkType, InferActionsTypes} from "./store";
@@ -61,12 +61,12 @@ export const getUserProfile = (userId: number): ThunkType => async (dispatch) =>
 }
 
 
-export const getStatus = (userId: number): ThunkType => async (dispatch: any) => {
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
     const data = await profileAPI.getStatus(userId);
-    dispatch(profileActions.setStatus(data.data));
+    dispatch(profileActions.setStatus(data));
 }
 
-export const updateStatus = (status: string): ThunkType => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     const data = await profileAPI.updateStatus(status);
     if (data.resultCode === 0) {
         dispatch(profileActions.setStatus(status));
@@ -77,17 +77,21 @@ export const updateStatus = (status: string): ThunkType => async (dispatch: any)
     }
 }
 
-export const savePhoto = (file: any): ThunkType => async (dispatch: any) => {
+export const savePhoto = (file: File): ThunkType => async (dispatch) => {
     const data = await profileAPI.savePhoto(file);
     if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(profileActions.savePhotoSuccess(data.data));
     }
 }
-export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch , getState) => {
     const userId = getState().auth.userId
     const data = await profileAPI.saveProfile(profile);
     if (data.resultCode === 0) {
-        dispatch(getUserProfile(userId));
+        if (userId != null) {
+          await  dispatch(getUserProfile(userId))
+        } else {
+            throw new Error("userId can't be null")
+        }
     } else {
         dispatch(stopSubmit('edit-profile', {_error: data.messages[0]}));
         return Promise.reject((data.messages[0]))
@@ -96,6 +100,6 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch:
 
 export type ProfileReducerInitialStateType = typeof initialState
 type ProfileReducerActionsType = InferActionsTypes<typeof profileActions>
-type ThunkType = BaseThunkType<ProfileReducerActionsType>
+type ThunkType = BaseThunkType<ProfileReducerActionsType | FormAction>
 
 

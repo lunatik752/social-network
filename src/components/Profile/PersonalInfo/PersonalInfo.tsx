@@ -6,20 +6,22 @@ import {ContactsType, ProfileType} from "../../../types/types";
 
 type PersonalInfoPropsType = {
     profile: ProfileType
-    updateStatus: () => void
+    updateStatus: (newStatus: string) => void
     status: string
     isOwner: boolean
-    saveProfile: (formData: any) => Promise<any>
+    saveProfile: (profile: ProfileType) => Promise<any>
 }
 
 const PersonalInfo: React.FC<PersonalInfoPropsType> = ({profile, updateStatus, status, isOwner, saveProfile}) => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
+
     const goToEditMode = () => {
         setEditMode(true)
     }
 
-    const onSubmit = (formData: any) => {
+
+    const onSubmit = (formData: ProfileType) => {
         saveProfile(formData)
             .then(
                 () => {
@@ -31,6 +33,7 @@ const PersonalInfo: React.FC<PersonalInfoPropsType> = ({profile, updateStatus, s
 
     return (
         <div className={styles.personalInfo}>
+
             {editMode
                 ? <ProfileDataForm profile={profile}
                                    initialValues={profile}
@@ -44,11 +47,12 @@ const PersonalInfo: React.FC<PersonalInfoPropsType> = ({profile, updateStatus, s
 
         </div>
     )
-};
+}
+
 
 type ContactPropsType = {
     contactTitle: string
-    contactValue: ContactsType
+    contactValue: string
 }
 
 const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
@@ -89,10 +93,13 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEdit
             </div>}
 
             <div>
-                <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
-                // @ts-ignore
-                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
-            })}
+                <b>Contacts:</b> {
+                Object
+                    .keys(profile.contacts)
+                    .map((key) => {
+                        return <Contact key={key} contactTitle={key}
+                                        contactValue={profile.contacts[key as keyof ContactsType]}/>
+                    })}
             </div>
         </div>
     )

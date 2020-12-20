@@ -8,12 +8,12 @@ import Loading from "../../common/Loading/Loading";
 import {ProfileType} from "../../types/types";
 
 type PropsType = {
-    profile: ProfileType
-    isOwner: boolean
-    savePhoto: () => void
-    saveProfile: (formData: any) => Promise<any>
-    updateStatus: () => void
+    profile: ProfileType | null
+    updateStatus: (newStatus: string) => void
     status: string
+    isOwner: boolean
+    saveProfile: (profile: ProfileType) => Promise<any>
+    savePhoto: (file: File) => void
 }
 
 const Profile: React.FC<PropsType> = (props) => {

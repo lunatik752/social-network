@@ -1,21 +1,26 @@
 import React, {useCallback} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {Textarea} from "../../../common/FormsControl/FormsControl";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {required} from "../../../utils/validators/validators";
+import {createField, GetStringKeys, Textarea} from "../../../common/FormsControl/FormsControl";
 import {PostType} from "../../../types/types";
 
-type MyPostsPropsType = {
+export type MyPostsPropsType = {
     posts: Array<PostType>
+}
+
+export type DispatchPropsType = {
     addPost: (newPost: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = React.memo((props) => {
+
+
+const MyPosts: React.FC<MyPostsPropsType & DispatchPropsType> = (props) => {
 
     let postsElements = props.posts.map(p => <Post message={p.message} key={p.id} countLikes={p.countLikes}/>);
 
-    const addNewPost = useCallback((values) => {
+    const addNewPost = useCallback((values: AddPostFormDataType) => {
         props.addPost(values.newPost)}
     , [])
 
@@ -28,22 +33,25 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo((props) => {
             </div>
         </div>
     )
-});
+};
 
-const maxLength10 = maxLengthCreator(10);
+const MyPostMemorized = React.memo(MyPosts)
 
 type AddPostFormPropsType = {
-    handleSubmit: () => void
 }
 
-const AddPostForm: React.FC<AddPostFormPropsType> = (props) => {
+type AddPostFormDataType = {
+    newPost: string
+}
+
+type AddPostFormDataTypeKeys = GetStringKeys<AddPostFormDataType>
+
+
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormDataType, AddPostFormPropsType> & AddPostFormPropsType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={Textarea}
-                       placeholder='Enter your message'
-                       name='newPost'
-                       validate={[required, maxLength10]}/>
+                {createField<AddPostFormDataTypeKeys>('Yor post', 'newPost', Textarea, [required])}
             </div>
             <div>
                 <button>Add post</button>
@@ -52,10 +60,10 @@ const AddPostForm: React.FC<AddPostFormPropsType> = (props) => {
     )
 }
 
-const AddPostReduxForm = reduxForm<any, any>({form: 'addPostForm'})(AddPostForm)
+const AddPostReduxForm = reduxForm<AddPostFormDataType, AddPostFormPropsType>({form: 'addPostForm'})(AddPostForm)
 
 
-export default MyPosts;
+export default MyPostMemorized;
 
 
 

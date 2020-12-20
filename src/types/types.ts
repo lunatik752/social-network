@@ -1,7 +1,7 @@
 
 export type ProfilePhotosType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 }
 
 export type PostType = {

@@ -5,6 +5,7 @@ import User from "./User";
 import Loading from "../../common/Loading/Loading";
 import { UserType } from '../../types/types';
 import { UsersSearchForm } from './UsersSearchForm';
+import {FilterType} from "../../redux/usersReduсer";
 
 
 type PropsTypes = {
@@ -17,14 +18,15 @@ type PropsTypes = {
     unFollow: (userId: number) => void
     users: Array<UserType>
     isLoading: boolean
+    onFilterChanged: (filter: FilterType) => void
 }
 
-const Users:React.FC<PropsTypes> = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading}) => {
+const Users:React.FC<PropsTypes> = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading, onFilterChanged},) => {
 
 
     return (
         <div className={style.usersWrapper}>
-            <UsersSearchForm/>
+            <UsersSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
                        totalItemsCount={totalUsersCount}

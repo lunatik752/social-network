@@ -11,13 +11,16 @@ const initialState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    followingInProgress: [] as Array<number> // Array of users id
+    followingInProgress: [] as Array<number>, // Array of users id
+    filter: {
+        term: ''
+    }
 };
 
 
 export const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case 'social-network/users/FOLLOW':
+        case 'SN/USERS/FOLLOW':
             return {
                 ...state,
                 // users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
@@ -28,7 +31,7 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
                     return user;
                 })
             };
-        case 'social-network/users/UNFOLLOW':
+        case 'SN/USERS/UNFOLLOW':
             return {
                 ...state,
                 // users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
@@ -39,45 +42,47 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
                     return user;
                 })
             };
-        case 'social-network/users/SET_USERS':
+        case 'SN/USERS/SET_USERS':
             return {
                 ...state,
                 users: action.users
             }
-        case  'social-network/users/SET_CURRENT_PAGE':
+        case  'SN/USERS/SET_CURRENT_PAGE':
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case 'social-network/users/SET_TOTAL_USER_COUNT':
+        case 'SN/USERS/SET_TOTAL_USER_COUNT':
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
-        case 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS':
+        case 'SN/USERS/TOGGLE_IS_FOLLOWING_PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
-
+        case "SN/USERS/SET_FILTER":
+            return {...state, filter: action.payload}
         default:
             return state;
     }
 }
 
 export const userReducerActions = {
-    followSuccess: (userId: number) => ({type: 'social-network/users/FOLLOW', userId} as const),
-    unFollowSuccess: (userId: number) => ({type: 'social-network/users/UNFOLLOW', userId} as const),
-    setUsers: (users: Array<UserType>) => ({type: 'social-network/users/SET_USERS', users} as const),
-    setCurrentPage: (currentPage: number) => ({type: 'social-network/users/SET_CURRENT_PAGE', currentPage} as const),
+    followSuccess: (userId: number) => ({type: 'SN/USERS/FOLLOW', userId} as const),
+    unFollowSuccess: (userId: number) => ({type: 'SN/USERS/UNFOLLOW', userId} as const),
+    setUsers: (users: Array<UserType>) => ({type: 'SN/USERS/SET_USERS', users} as const),
+    setCurrentPage: (currentPage: number) => ({type: 'SN/USERS/SET_CURRENT_PAGE', currentPage} as const),
+    setFilter: (term: string) => ({type: 'SN/USERS/SET_FILTER', payload: {term} } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({
-        type: 'social-network/users/SET_TOTAL_USER_COUNT',
+        type: 'SN/USERS/SET_TOTAL_USER_COUNT',
         totalUsersCount
     } as const),
     toggleFollowingProgress: (isFetching: boolean, userId: number) => ({
-        type: 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS',
+        type: 'SN/USERS/TOGGLE_IS_FOLLOWING_PROGRESS',
         isFetching,
         userId
     } as const)
@@ -85,10 +90,12 @@ export const userReducerActions = {
 
 
 // Thunk(санка) для загрузки страниц пользователей
-export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number, term: string): ThunkType => async (dispatch) => {
     dispatch(setLoading(true));
     dispatch(userReducerActions.setCurrentPage(page))
-    let response = await usersAPI.getUsers(page, pageSize);
+    dispatch(userReducerActions.setFilter(term))
+
+    let response = await usersAPI.getUsers(page, pageSize, term);
     dispatch(setLoading(false));
     dispatch(userReducerActions.setUsers(response.items));
     dispatch(userReducerActions.setTotalUsersCount(response.totalCount));
@@ -114,5 +121,6 @@ export const follow = (userId: number): ThunkType => async (dispatch) => {
 }
 
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 type UsersReducerActionsType = InferActionsTypes<typeof userReducerActions>
 type ThunkType = BaseThunkType<UsersReducerActionsType | LoadingReducerActionsType>

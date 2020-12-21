@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Users from "./Users";
-import {follow, requestUsers, unFollow} from "../../redux/usersReduсer";
+import {follow, requestUsers, unFollow, FilterType} from "../../redux/usersReduсer";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -9,6 +9,7 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUsers,
+    getUsersFilter,
 } from "../../redux/usersSelectors";
 import {UserType} from "../../types/types";
 import {AppRootStateType} from '../../redux/store';
@@ -21,10 +22,11 @@ type MapStatePropsType = {
     totalUsersCount: number
     isLoading: boolean
     followingInProgress: Array<number>
+    filter: FilterType
 }
 
 type MapDispatchPropsType = {
-    requestUsers: (currentPage: number, pageSize: number) => void
+    requestUsers: (currentPage: number, pageSize: number, term: string) => void
     follow: (userId: number) => void
     unFollow: (userId: number) => void
 }
@@ -41,11 +43,18 @@ class UsersComponent extends React.Component<PropsType> {
 
     componentDidMount() {
         const {currentPage, pageSize} = this.props
-        this.props.requestUsers(currentPage, pageSize);
+        this.props.requestUsers(currentPage, pageSize, '');
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        const { pageSize, filter} = this.props
+        this.props.requestUsers(pageNumber, pageSize, filter.term);
+    }
+
+    onFilterChanged = (filter: FilterType) => {
+        const {pageSize} = this.props
+        this.props.requestUsers(1, pageSize, filter.term);
+
     }
 
     render() {
@@ -60,6 +69,7 @@ class UsersComponent extends React.Component<PropsType> {
                        followingInProgress={this.props.followingInProgress}
                        currentPage={this.props.currentPage}
                        isLoading={this.props.isLoading}
+                       onFilterChanged={this.onFilterChanged}
                 />
             </>
         )
@@ -73,7 +83,8 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isLoading: state.loading.isLoading,
-        followingInProgress: getFollowingInProgress(state)
+        followingInProgress: getFollowingInProgress(state),
+        filter: getUsersFilter(state)
     }
 };
 

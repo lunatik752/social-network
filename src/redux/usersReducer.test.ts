@@ -1,5 +1,4 @@
-import {UserType} from "../types/types";
-import {InitialStateType, usersReducer, userReducerActions} from "./usersReduсer";
+import {InitialStateType, userReducerActions, usersReducer} from "./usersReduсer";
 
 let state: InitialStateType
 

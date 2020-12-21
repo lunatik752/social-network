@@ -14,7 +14,7 @@ export enum ResultCodeForCaptchaEnum  {
     CaptchaIsRequired = 10
 }
 
-export type ResponseType<D = {}, RC = ResultCodeEnum> = {
+export type ApiResponseType<D = {}, RC = ResultCodeEnum> = {
     data: D
     resultCode: RC
     messages: Array<string>

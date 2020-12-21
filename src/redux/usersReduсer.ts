@@ -3,6 +3,7 @@ import {BaseThunkType, InferActionsTypes} from "./store";
 import {Dispatch} from "redux";
 import {LoadingReducerActionsType, setLoading} from "./loadingReducer";
 import {usersAPI} from "../api/users-api";
+import {ApiResponseType, ResultCodeEnum} from "../api/api";
 
 
 const initialState = {
@@ -93,10 +94,10 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => async
     dispatch(userReducerActions.setTotalUsersCount(response.totalCount));
 }
 
-const _followUnfollowFlow = async (dispatch: Dispatch<UsersReducerActionsType>, userId: number, apiMethod: any, actionCreator: (userId: number) => ReturnType<typeof userReducerActions.followSuccess> | ReturnType<typeof userReducerActions.unFollowSuccess>) => {
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersReducerActionsType>, userId: number, apiMethod: (userId: number) => Promise<ApiResponseType>, actionCreator: (userId: number) => ReturnType<typeof userReducerActions.followSuccess> | ReturnType<typeof userReducerActions.unFollowSuccess>) => {
     dispatch(userReducerActions.toggleFollowingProgress(true, userId));
     let response = await apiMethod(userId)
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodeEnum.Success) {
         dispatch(actionCreator(userId));
     }
     dispatch(userReducerActions.toggleFollowingProgress(false, userId));

@@ -1,4 +1,4 @@
-import {instance, ResultCodeForCaptchaEnum, ResponseType, ResultCodeEnum} from "./api";
+import {instance, ResultCodeForCaptchaEnum, ApiResponseType, ResultCodeEnum} from "./api";
 
 type MeParamsType = {
     id: number
@@ -13,10 +13,10 @@ export type LoginParamsType = {
 
 export const authAPI = {
     me() {
-        return instance.get<ResponseType<MeParamsType>>(`auth/me`).then(res => res.data)
+        return instance.get<ApiResponseType<MeParamsType>>(`auth/me`).then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
-        return instance.post<ResponseType<LoginParamsType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, {
+        return instance.post<ApiResponseType<LoginParamsType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, {
             email,
             password,
             rememberMe,
@@ -24,6 +24,6 @@ export const authAPI = {
         }).then(res => res.data)
     },
     logout() {
-        return instance.delete<ResponseType>(`auth/login`).then(res => res.data);
+        return instance.delete<ApiResponseType>(`auth/login`).then(res => res.data);
     },
 }

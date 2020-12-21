@@ -4,6 +4,7 @@ import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
 import Loading from "../../common/Loading/Loading";
 import { UserType } from '../../types/types';
+import { UsersSearchForm } from './UsersSearchForm';
 
 
 type PropsTypes = {
@@ -23,6 +24,7 @@ const Users:React.FC<PropsTypes> = ({currentPage, onPageChanged, totalUsersCount
 
     return (
         <div className={style.usersWrapper}>
+            <UsersSearchForm/>
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
                        totalItemsCount={totalUsersCount}

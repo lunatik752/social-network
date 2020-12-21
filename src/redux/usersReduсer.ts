@@ -13,7 +13,8 @@ const initialState = {
     currentPage: 1,
     followingInProgress: [] as Array<number>, // Array of users id
     filter: {
-        term: ''
+        term: '',
+        friend: null as null | boolean
     }
 };
 
@@ -76,7 +77,7 @@ export const userReducerActions = {
     unFollowSuccess: (userId: number) => ({type: 'SN/USERS/UNFOLLOW', userId} as const),
     setUsers: (users: Array<UserType>) => ({type: 'SN/USERS/SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'SN/USERS/SET_CURRENT_PAGE', currentPage} as const),
-    setFilter: (term: string) => ({type: 'SN/USERS/SET_FILTER', payload: {term} } as const),
+    setFilter: (filter: FilterType) => ({type: 'SN/USERS/SET_FILTER', payload: filter } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({
         type: 'SN/USERS/SET_TOTAL_USER_COUNT',
         totalUsersCount
@@ -90,12 +91,12 @@ export const userReducerActions = {
 
 
 // Thunk(санка) для загрузки страниц пользователей
-export const requestUsers = (page: number, pageSize: number, term: string): ThunkType => async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     dispatch(setLoading(true));
     dispatch(userReducerActions.setCurrentPage(page))
-    dispatch(userReducerActions.setFilter(term))
+    dispatch(userReducerActions.setFilter(filter))
 
-    let response = await usersAPI.getUsers(page, pageSize, term);
+    let response = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
     dispatch(setLoading(false));
     dispatch(userReducerActions.setUsers(response.items));
     dispatch(userReducerActions.setTotalUsersCount(response.totalCount));

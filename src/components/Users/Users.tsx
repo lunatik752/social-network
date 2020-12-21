@@ -3,8 +3,8 @@ import style from './Usere.module.css'
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
 import Loading from "../../common/Loading/Loading";
-import { UserType } from '../../types/types';
-import { UsersSearchForm } from './UsersSearchForm';
+import {UserType} from '../../types/types';
+import {UsersSearchForm} from './UsersSearchForm';
 import {FilterType} from "../../redux/usersReduсer";
 
 
@@ -21,30 +21,42 @@ type PropsTypes = {
     onFilterChanged: (filter: FilterType) => void
 }
 
-const Users:React.FC<PropsTypes> = ({currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unFollow, users, isLoading, onFilterChanged},) => {
+const Users: React.FC<PropsTypes> = React.memo(({
+                                                    currentPage,
+                                                    onPageChanged,
+                                                    totalUsersCount,
+                                                    pageSize,
+                                                    followingInProgress,
+                                                    follow,
+                                                    unFollow,
+                                                    users,
+                                                    isLoading,
+                                                    onFilterChanged
+                                                },) => {
 
 
-    return (
-        <div className={style.usersWrapper}>
-            <UsersSearchForm onFilterChanged={onFilterChanged}/>
-            <Paginator currentPage={currentPage}
-                       onPageChanged={onPageChanged}
-                       totalItemsCount={totalUsersCount}
-                       pageSize={pageSize}
-                       portionSize={10}
+        return (
+            <div className={style.usersWrapper}>
+                <UsersSearchForm onFilterChanged={onFilterChanged}/>
+                <Paginator currentPage={currentPage}
+                           onPageChanged={onPageChanged}
+                           totalItemsCount={totalUsersCount}
+                           pageSize={pageSize}
+                           portionSize={10}
 
-            />
-
-            {isLoading ? <Loading/> : users.map(user => <User user={user}
-                                     followingInProgress={followingInProgress}
-                                     follow={follow}
-                                     unFollow={unFollow}
-                                     key={user.id}
                 />
-            )}
-        </div>
-    )
-};
+
+                {isLoading ? <Loading/> : users.map(user => <User user={user}
+                                                                  followingInProgress={followingInProgress}
+                                                                  follow={follow}
+                                                                  unFollow={unFollow}
+                                                                  key={user.id}
+                    />
+                )}
+            </div>
+        )
+    }
+);
 
 
 export default Users;

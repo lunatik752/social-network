@@ -1,39 +1,60 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './Usere.module.css'
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
 import Loading from "../../common/Loading/Loading";
 import {UserType} from '../../types/types';
 import {UsersSearchForm} from './UsersSearchForm';
-import {FilterType} from "../../redux/usersReduсer";
+import {FilterType, follow, requestUsers, unFollow} from "../../redux/usersReduсer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../redux/store";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsLoading,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+    getUsersFilter
+} from "../../redux/usersSelectors";
 
 
 type PropsTypes = {
-    pageSize: number
-    currentPage: number
-    onPageChanged: (page: number) => void
-    totalUsersCount: number
-    followingInProgress: Array<number>
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    users: Array<UserType>
-    isLoading: boolean
-    onFilterChanged: (filter: FilterType) => void
 }
 
-const Users: React.FC<PropsTypes> = React.memo(({
-                                                    currentPage,
-                                                    onPageChanged,
-                                                    totalUsersCount,
-                                                    pageSize,
-                                                    followingInProgress,
-                                                    follow,
-                                                    unFollow,
-                                                    users,
-                                                    isLoading,
-                                                    onFilterChanged
-                                                },) => {
+export const Users: React.FC<PropsTypes> = React.memo(() => {
 
+        const totalUsersCount = useSelector<AppRootStateType, number>(getTotalUsersCount)
+        const currentPage = useSelector<AppRootStateType, number>(getCurrentPage)
+        const pageSize = useSelector<AppRootStateType, number>(getPageSize)
+        const filter = useSelector<AppRootStateType, FilterType>(getUsersFilter)
+        const isLoading = useSelector<AppRootStateType, boolean>(getIsLoading)
+        const followingInProgress = useSelector<AppRootStateType, Array<number>>(getFollowingInProgress)
+        const users = useSelector<AppRootStateType, Array<UserType>>(getUsers)
+
+        const dispatch = useDispatch()
+
+        useEffect(() => {
+          dispatch(requestUsers(currentPage, pageSize, filter))
+        }, [])
+
+        const onPageChanged = (pageNumber: number) => {
+            dispatch(requestUsers(pageNumber, pageSize, filter))
+        }
+
+        const onFilterChanged = (filter: FilterType) => {
+            dispatch(requestUsers(1, pageSize, filter))
+
+        }
+
+        const followHandler = (userId: number) => {
+            dispatch(follow(userId))
+        }
+
+        const unFollowHandler = (userId: number) => {
+            dispatch(unFollow(userId))
+
+        }
 
         return (
             <div className={style.usersWrapper}>
@@ -48,8 +69,8 @@ const Users: React.FC<PropsTypes> = React.memo(({
 
                 {isLoading ? <Loading/> : users.map(user => <User user={user}
                                                                   followingInProgress={followingInProgress}
-                                                                  follow={follow}
-                                                                  unFollow={unFollow}
+                                                                  follow={followHandler}
+                                                                  unFollow={unFollowHandler}
                                                                   key={user.id}
                     />
                 )}
@@ -57,6 +78,3 @@ const Users: React.FC<PropsTypes> = React.memo(({
         )
     }
 );
-
-
-export default Users;

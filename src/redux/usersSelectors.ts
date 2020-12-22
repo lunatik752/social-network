@@ -30,3 +30,6 @@ export const getUsersFilter = (state: AppRootStateType) => {
     return state.usersPage.filter
 }
 
+export  const getIsLoading = (state: AppRootStateType) => {
+    return state.loading.isLoading
+}

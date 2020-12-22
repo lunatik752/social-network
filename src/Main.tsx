@@ -12,9 +12,9 @@ import {initializeApp} from "./redux/appReduсer";
 import Loading from "./common/Loading/Loading";
 import {withSuspense} from "./hoc/withSuspense";
 import {AppRootStateType} from "./redux/store";
+import {UsersPage} from "./components/Users/UsersPage";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const PhotosContainer = React.lazy(() => import('./components/Photos/PhotosContainer'));
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
@@ -27,7 +27,6 @@ type MapDispatchToPropsType = {
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedPhotos= withSuspense(PhotosContainer)
-const SuspendedUsers= withSuspense(UsersContainer)
 
 
 class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
@@ -75,7 +74,7 @@ class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType>
                         <Route path='/news' render={withSuspense(News)}/>
                         <Route path='/music' render={withSuspense(Music)}/>
                         <Route path='/settings' render={() => <Settings/>}/>
-                        <Route path='/users' render={() => <SuspendedUsers/>}/>
+                        <Route path='/users' render={() => <UsersPage/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                         <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
                     </Switch>

@@ -2,7 +2,7 @@ import React from "react";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Input} from "../../common/FormsControl/FormsControl";
 import {required} from "../../utils/validators/validators";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/authReduсer";
 import {Redirect} from "react-router-dom";
 import style from '../../common/FormsControl/FormsControl.module.css';
@@ -12,7 +12,11 @@ type LoginFormOwnPropsType = {
     captchaUrl: string | null
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({handleSubmit, error, captchaUrl}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({
+                                                                                                                      handleSubmit,
+                                                                                                                      error,
+                                                                                                                      captchaUrl
+                                                                                                                  }) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField<LoginFormDataTypeKeys>('Email', 'email', Input, [required])}
@@ -34,17 +38,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps
 
 const LoginReduxForm = reduxForm<LoginFormDataType, LoginFormOwnPropsType>({form: 'loginForm'})(LoginForm)
 
-type LoginMapStatePropsType = {
-    isAuth: boolean
-    captchaUrl: string | null
+type LoginPropsType = {
+
 }
-
-type LoginMapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-
-
-type LoginPropsType = LoginMapStatePropsType & LoginMapDispatchPropsType
 
 export type LoginFormDataType = {
     email: string
@@ -55,28 +51,23 @@ export type LoginFormDataType = {
 
 type LoginFormDataTypeKeys = GetStringKeys<LoginFormDataType>
 
-const Login: React.FC<LoginPropsType> = (props) => {
+export const Login: React.FC<LoginPropsType> = () => {
+
+    const captchaUrl = useSelector<AppRootStateType, string | null>(state => state.auth.captchaUrl)
+    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+    const dispatch = useDispatch()
 
 
     const onSubmit = (formData: LoginFormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+       dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
 
     return <div>
         <h2>LOGIN</h2>
-        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
     </div>
 }
-
-const mapStateToProps = (state: AppRootStateType): LoginMapStatePropsType => (
-    {
-        captchaUrl: state.auth.captchaUrl,
-        isAuth: state.auth.isAuth
-    })
-
-
-export default connect<LoginMapStatePropsType, LoginMapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {login})(Login);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Input} from "../../common/FormsControl/FormsControl";
 import {required} from "../../utils/validators/validators";
@@ -58,9 +58,9 @@ export const Login: React.FC<LoginPropsType> = () => {
     const dispatch = useDispatch()
 
 
-    const onSubmit = (formData: LoginFormDataType) => {
+    const onSubmit = useCallback((formData: LoginFormDataType) => {
        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
-    }
+    }, [])
 
     if (isAuth) {
         return <Redirect to={'/profile'}/>

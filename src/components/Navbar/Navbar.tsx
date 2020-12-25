@@ -3,33 +3,40 @@ import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
 
-const Navbar = () => {
+export const PROFILE_PATH = '/profile'
+export const NEWS_PATH = '/news'
+export const PHOTO_PATH = '/photo'
+export const DIALOGS_PATH = '/dialogs'
+export const MUSIC_PATH = '/music'
+export const SETTINGS_PATH = '/settings'
+export const DEVELOPERS_PATH = '/developers'
+
+
+export const Navbar = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
-                <NavLink to='/profile' activeClassName={s.active}>Profile</NavLink>
+                <NavLink to={PROFILE_PATH} activeClassName={s.active}>Profile</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/news' activeClassName={s.active}>News</NavLink>
+                <NavLink to={NEWS_PATH} activeClassName={s.active}>News</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/photos' activeClassName={s.active}>Photos</NavLink>
+                <NavLink to={PHOTO_PATH} activeClassName={s.active}>Photos</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/dialogs' activeClassName={s.active}>Messages</NavLink>
+                <NavLink to={DIALOGS_PATH} activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/music' activeClassName={s.active}>Music</NavLink>
+                <NavLink to={MUSIC_PATH} activeClassName={s.active}>Music</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
+                <NavLink to={SETTINGS_PATH} activeClassName={s.active}>Settings</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
+                <NavLink to={DEVELOPERS_PATH} activeClassName={s.active}>Users</NavLink>
             </div>
         </nav>
     )
-};
-
-export default Navbar;
+}
 

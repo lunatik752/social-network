@@ -19,6 +19,7 @@ import {
 } from "../../redux/usersSelectors";
 import {useHistory} from 'react-router-dom';
 import * as queryString from 'querystring'
+import { DEVELOPERS_PATH } from '../Navbar/Navbar';
 
 type PropsTypes = {}
 type QueryParamsType = { term?: string; page?: string; friend?: string}
@@ -70,7 +71,7 @@ export const Users: React.FC<PropsTypes> = React.memo(() => {
         if (currentPage !== 1) query.page = String(currentPage)
 
         history.push({
-            pathname: '/users',
+            pathname: DEVELOPERS_PATH,
             search: queryString.stringify(query)
         })
     }, [filter, currentPage])

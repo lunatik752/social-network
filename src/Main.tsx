@@ -23,11 +23,11 @@ import {UsersPage} from "./components/Users/UsersPage";
 import {Breadcrumb, Layout, Menu} from 'antd';
 import {LaptopOutlined, UserOutlined} from '@ant-design/icons';
 import {AppHeader} from "./components/Header/Header";
+import {Dialogs} from "./components/Dialogs/Dialogs";
 
 const {SubMenu} = Menu;
 const {Content, Sider} = Layout;
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const PhotosContainer = React.lazy(() => import('./components/Photos/PhotosContainer'));
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
@@ -38,7 +38,7 @@ type MapDispatchToPropsType = {
     initializeApp: () => void
 }
 
-const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedDialogs = withSuspense(Dialogs)
 const SuspendedPhotos = withSuspense(PhotosContainer)
 
 

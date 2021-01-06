@@ -10,6 +10,7 @@ export const DIALOGS_PATH = '/dialogs'
 export const MUSIC_PATH = '/music'
 export const SETTINGS_PATH = '/settings'
 export const DEVELOPERS_PATH = '/developers'
+export const CHAT_PATH = '/chat'
 
 
 export const Navbar = () => {

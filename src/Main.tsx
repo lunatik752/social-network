@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {
+    CHAT_PATH,
     DEVELOPERS_PATH,
     DIALOGS_PATH,
     MUSIC_PATH,
@@ -21,7 +22,7 @@ import {withSuspense} from "./hoc/withSuspense";
 import {AppRootStateType} from "./redux/store";
 import {UsersPage} from "./components/Users/UsersPage";
 import {Breadcrumb, Layout, Menu} from 'antd';
-import {LaptopOutlined, UserOutlined} from '@ant-design/icons';
+import {LaptopOutlined, UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {AppHeader} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 
@@ -31,6 +32,7 @@ const {Content, Sider} = Layout;
 const PhotosContainer = React.lazy(() => import('./components/Photos/PhotosContainer'));
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'))
 
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -40,6 +42,7 @@ type MapDispatchToPropsType = {
 
 const SuspendedDialogs = withSuspense(Dialogs)
 const SuspendedPhotos = withSuspense(PhotosContainer)
+const SuspendedChatPage = withSuspense(ChatPage)
 
 
 class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
@@ -86,14 +89,14 @@ class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType>
                                 <Menu.Item key="2"> <Link to={DIALOGS_PATH}>Messages</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub2" icon={<LaptopOutlined/>} title='Developers'>
-                                <Menu.Item key="5"><Link to={DEVELOPERS_PATH}>Developers</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to={DEVELOPERS_PATH}>Developers</Link></Menu.Item>
                             </SubMenu>
-                            {/*  <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                                <Menu.Item key="9">option9</Menu.Item>
+                            <SubMenu key="sub3" icon={<NotificationOutlined/>} title="subnav 3">
+                                <Menu.Item key="4"> <Link to={CHAT_PATH}>Chat</Link></Menu.Item>
                                 <Menu.Item key="10">option10</Menu.Item>
                                 <Menu.Item key="11">option11</Menu.Item>
                                 <Menu.Item key="12">option12</Menu.Item>
-                            </SubMenu>*/}
+                            </SubMenu>
                         </Menu>
                     </Sider>
                     <Layout style={{padding: '0 24px 24px'}}>
@@ -124,34 +127,13 @@ class Main extends React.Component<MapStateToPropsType & MapDispatchToPropsType>
                                 <Route path={SETTINGS_PATH} render={() => <Settings/>}/>
                                 <Route path={DEVELOPERS_PATH} render={() => <UsersPage/>}/>
                                 <Route path='/login' render={() => <Login/>}/>
+                                <Route path={CHAT_PATH} render={() => <SuspendedChatPage/>}/>
                                 <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
                             </Switch>
                         </Content>
                     </Layout>
                 </Layout>
             </Layout>
-            /*  <div className='app-wrapper'>
-                  <HeaderContainer/>
-                  <Navbar/>
-                  <div className='app-wrapper-content'>
-                      <Switch>
-                          <Route exact path={'/'} render={() => <Redirect to={'/profile/:userId?'}/>}/>
-                          <Route
-                              path='/profile/:userId?'    // Вопросительный знак в пути означает что параметр опциональный. Его может не быть.
-                              render={() => <ProfileContainer/>}/>
-                          <Route path='/dialogs'
-                                 render={() => <SuspendedDialogs/>}/>
-                          <Route path='/photos'
-                                 render={() => <SuspendedPhotos/>}/>
-                          <Route path='/news' render={withSuspense(News)}/>
-                          <Route path='/music' render={withSuspense(Music)}/>
-                          <Route path='/settings' render={() => <Settings/>}/>
-                          <Route path='/users' render={() => <UsersPage/>}/>
-                          <Route path='/login' render={() => <Login/>}/>
-                          <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
-                      </Switch>
-                  </div>
-              </div>*/
         );
     }
 }

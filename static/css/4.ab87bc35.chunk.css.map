@@ -1,0 +1,1 @@
+{"version":3,"sources":["Messages.module.css"],"names":[],"mappings":"AAAA,iCACI,YAAa,CACb,eACJ","file":"4.ab87bc35.chunk.css","sourcesContent":[".messagesWrapper {\r\n    height: 500px;\r\n    overflow-y: auto;\r\n}\r\n"]}

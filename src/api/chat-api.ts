@@ -35,7 +35,7 @@ export const chatApi = {
 
 
 
-type SubscriberType = (messages: ChatMessageType) => void
+type SubscriberType = (messages: ChatMessageType[]) => void
 
 export type ChatMessageType = {
     message: string

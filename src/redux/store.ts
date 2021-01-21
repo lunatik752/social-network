@@ -9,6 +9,7 @@ import {authReducer} from "./authReduсer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from "redux-form"
 import appReducer from "./appReduсer";
+import {chatReducer} from "./chatReduсer";
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
@@ -19,7 +20,8 @@ let rootReducers = combineReducers({
     loading: loadingReducer,
     auth: authReducer,
     form: formReducer,
-    app: appReducer
+    app: appReducer,
+    chat: chatReducer
 });
 
 declare global {

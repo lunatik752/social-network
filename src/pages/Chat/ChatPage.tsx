@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from "react";
 import style from './Messages.module.css'
+import { ChatMessageType } from "../../api/chat-api";
 
 
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
 
 const ChatPage: React.FC = () => {
     return (
@@ -30,13 +25,6 @@ const Chat: React.FC = () => {
             setTimeout(createChannel, 3000)
         }
 
-        function createChannel() {
-            wsChannel?.removeEventListener('close', closeHandler);
-            wsChannel?.close();
-            wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-            wsChannel.addEventListener('close ', closeHandler)
-            setWs(wsChannel)
-        }
 
         createChannel()
 

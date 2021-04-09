@@ -13,9 +13,13 @@ export type LoginParamsType = {
 
 export const authAPI = {
     me() {
-        return instance.get<ApiResponseType<MeParamsType>>(`auth/me`).then(res => res.data)
+        return instance.get<ApiResponseType<MeParamsType>>(`auth/me`).then(res => {
+            console.log(res)
+            return res.data
+        })
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
+        debugger
         return instance.post<ApiResponseType<LoginParamsType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, {
             email,
             password,
